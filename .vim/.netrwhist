@@ -1,0 +1,3 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_1='/Users/ntruong/Documents/ut/2017-2018/fall/cs343h/projects/cs343-contest/teams/Rainman'
