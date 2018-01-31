@@ -59,12 +59,12 @@ inoremap //g \gamma
 inoremap //d \delta
 inoremap //e \epsilon
 inoremap //z \zeta
+inoremap //t \theta
 inoremap //k \kappa
 inoremap //l \lambda
 inoremap //m \mu
 inoremap //n \nu
 inoremap //p \pi
-inoremap //t \theta
 inoremap //s \sigma
 inoremap //c \chi
 "==================================================

@@ -1,19 +1,19 @@
 @font-face
 {
-    font-family:'haxrcorp';
-    src: url('haxrcorpttf.ttf');
+    font-family:'segoe';
+    src: url('segoeuil.ttf');
 }
 
 input {
-	font-family: haxrcorp, monospace;
+	font-family: segoe, monospace;
 	font-size:15px;
 }
 
 body{
-	font-family: haxrcorp, monospace;
+	font-family: segoe, monospace;
 	font-size:15px;
 	background-color:#F8F8F8;
-	background-image: url("img/bg_tile.jpg");
+	background-image: url("img/goyard_highres.png");
 	background-repeat: repeat;
 }
 
@@ -84,8 +84,8 @@ body{
 	margin-right:1px;
 	width:100%;
 	border:none;
-	font-family: haxrcorp, monospace;
-	font-size:15px;
+	font-family: segoe, monospace;
+	font-size:10px;
 	padding-bottom: 0px;
 	padding-top:0px;
 	padding-left:2px;
@@ -150,8 +150,8 @@ body{
 
 .time {
 	color:#FFFFFF;
-	font-family: haxrcorp, monospace;
-	font-size:16px;
+	font-family: segoe, monospace;
+	font-size:13px;
 	position: absolute;
 	top: -18px;
     width: auto;
@@ -161,8 +161,8 @@ body{
 
 .welcome {
 	line-height:18px;
-	font-family: haxrcorp, monospace;
-	font-size:22px;
+	font-family: segoe, monospace;
+	font-size:30px;
 	position:absolute;
 	top:80px;
 	width:300px;
@@ -211,7 +211,7 @@ li:hover {
 
 a {
 	text-decoration:none;
-	font-size:16px;
+	font-size:10px;
 	height:12px;
 	line-height:12px;
 	color:#000000;
@@ -222,7 +222,7 @@ a:hover {
 }
 
 .clink {
-	font-size: 16px;
+	font-size: 14px;
 	text-decoration:none;
 	line-height: 16px;
 	color:#000000;
