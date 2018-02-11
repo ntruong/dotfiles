@@ -26,6 +26,7 @@ set shiftwidth=2            " Number of spaces a tab counts for
 set autoindent              " Auto indentation
 set listchars=trail:>       " Trailing whitespace
 set list                    " Display trailing whitespace
+set noswapfile              " No .swp
 "===============================================================================
 
 "===============================================================================
@@ -341,6 +342,8 @@ augroup au_langs
   autocmd filetype md,markdown call Load_File("md.vim")
   " Python
   autocmd filetype python call Load_File("python.vim")
+  " R
+  autocmd filetype r call Load_File("r.vim")
   " VimScript
   autocmd filetype vim call Load_File("vim.vim")
 augroup END

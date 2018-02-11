@@ -26,7 +26,7 @@ function! BeginEnd(type)
   if !(strlen(a:type))
     call inputsave()
     let t = input('Begin: ')
-  call inputrestore()
+    call inputrestore()
   endif
   let ins = ["\\begin{".t."}",
             \b:gotoflag,

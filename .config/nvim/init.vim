@@ -15,6 +15,7 @@ set expandtab               " Insert tabs as spaces
 set inccommand=nosplit      " Incremental commands
 set tabstop=2               " Number of spaces a tab counts for
 set shiftwidth=2            " Number of spaces a tab counts for
+set noswapfile              " No swapfile
 "===============================================================================
 
 "===============================================================================
@@ -325,6 +326,8 @@ augroup au_langs
   autocmd filetype md,markdown call Load_File("md.vim")
   " Python
   autocmd filetype python call Load_File("python.vim")
+  " R
+  autocmd filetype r call Load_File("r.vim")
   " VimScript
   autocmd filetype vim call Load_File("vim.vim")
 augroup END
