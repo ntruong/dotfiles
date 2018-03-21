@@ -8,7 +8,6 @@ let b:commentflag = '%'
 let b:gotoflag = '(<>)'
 set textwidth=80
 inoremap <buffer> ;; <Esc>:call search(b:gotoflag)<CR>c4l
-nnoremap <buffer> ;; :call search(b:gotoflag)<CR>c4l
 " Text display
 inoremap <buffer> ;bf \textbf{}<Space>(<>)<Esc>T{i
 inoremap <buffer> ;it \textit{}<Space>(<>)<Esc>T{i
@@ -28,17 +27,13 @@ function! BeginEnd(type)
     let t = input('Begin: ')
     call inputrestore()
   endif
-  let ins = ["\\begin{".t."}",
-            \b:gotoflag,
-            \"\\end{".t."}",
-            \b:gotoflag]
+  let ins = ["\\begin{".t."}", "\\end{".t."}"]
   call append('.', ins)
   delete
 endfunction
-inoremap <buffer> ;bg  <Esc>:call BeginEnd("")<CR>i
-inoremap <buffer> ;doc <Esc>:call BeginEnd("document")<CR>i
-inoremap <buffer> ;ls  <Esc>:call BeginEnd("itemize")<CR>i
-inoremap <buffer> ;en  <Esc>:call BeginEnd("enumerate")<CR>i
+inoremap <buffer> ;bg  <Esc>:call BeginEnd("")<CR>
+inoremap <buffer> ;ls  <Esc>:call BeginEnd("itemize")<CR>
+inoremap <buffer> ;en  <Esc>:call BeginEnd("enumerate")<CR>
 inoremap <buffer> ;*   \item<Space>
 " Misc
 inoremap <buffer> ;pkg \usepackage{}<Left>
@@ -52,19 +47,4 @@ function! DisplayPdf()
   execute "!open ".f
 endfunction
 nnoremap <buffer> <Leader>dp :call DisplayPdf()<CR><CR>
-" Symbols
-inoremap //a \alpha
-inoremap //b \beta
-inoremap //g \gamma
-inoremap //d \delta
-inoremap //e \epsilon
-inoremap //z \zeta
-inoremap //t \theta
-inoremap //k \kappa
-inoremap //l \lambda
-inoremap //m \mu
-inoremap //n \nu
-inoremap //p \pi
-inoremap //s \sigma
-inoremap //c \chi
 "==================================================
