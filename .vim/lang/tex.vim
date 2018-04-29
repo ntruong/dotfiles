@@ -5,9 +5,7 @@
 "==================================================
 """ SETTINGS:
 let b:commentflag = '%'
-let b:gotoflag = '(<>)'
 set textwidth=80
-inoremap <buffer> ;; <Esc>:call search(b:gotoflag)<CR>c4l
 " Text display
 inoremap <buffer> ;bf \textbf{}<Space>(<>)<Esc>T{i
 inoremap <buffer> ;it \textit{}<Space>(<>)<Esc>T{i
@@ -15,11 +13,7 @@ inoremap <buffer> ;ul \underline{}<Space>(<>)<Esc>T{i
 inoremap <buffer> ;em \emph{}<Space>(<>)<Esc>T{i
 " Math stuff
 inoremap <buffer> ;mm   \[\]<Left><Left>
-" Sectionings
-inoremap <buffer> ;sc   \section{}<CR>(<>)<Esc><Up>f}i
-inoremap <buffer> ;ssc  \subsection{}<CR>(<>)<Esc><Up>f}i
-inoremap <buffer> ;sssc \subsubsection{}<CR>(<>)<Esc><Up>f}i
-" \begin{} ... \end{
+" \begin{} ... \end{}
 function! BeginEnd(type)
   let t = a:type
   if !(strlen(a:type))
@@ -27,16 +21,39 @@ function! BeginEnd(type)
     let t = input('Begin: ')
     call inputrestore()
   endif
-  let ins = ["\\begin{".t."}", "\\end{".t."}"]
+  let ins = ['\begin{'.t.'}', '\end{'.t.'}']
   call append('.', ins)
   delete
 endfunction
 inoremap <buffer> ;bg  <Esc>:call BeginEnd("")<CR>
-inoremap <buffer> ;ls  <Esc>:call BeginEnd("itemize")<CR>
-inoremap <buffer> ;en  <Esc>:call BeginEnd("enumerate")<CR>
-inoremap <buffer> ;*   \item<Space>
-" Misc
-inoremap <buffer> ;pkg \usepackage{}<Left>
+" Matrices
+function! Matrix()
+  call inputsave()
+  let rows = input('Rows: ')
+  let cols = input('Cols: ')
+  call inputrestore()
+  let align = ['l', 'r', 'c'][confirm('Align:', "&left\n&right\n&center", 2)-1]
+  confirm
+  let matrix = ['\left[', '\begin{array}{'.repeat(align, rows).'}']
+  for r in range(rows)
+    let matrix += [join(map(range(cols), '"##".r.";".v:val'), ' & ') . ' \\']
+  endfor
+  let matrix += ['\end{array}', '\right]']
+  call append('.', matrix)
+  redraw
+  for r in range(rows)
+    for c in range(cols)
+      let id = '##'.r.';'.c
+      execute "normal! /".id."\<CR>"
+      redraw
+      call inputsave()
+      let entry = input('Entry: ')
+      call inputrestore()
+      execute 'normal! cW'.entry
+    endfor
+  endfor
+endfunction
+inoremap <buffer> ;mat <Esc>:call Matrix()<CR>
 " Compile and display functions
 function! CompileTex()
   execute "!pdflatex ".expand('%:p')." > /dev/null"
