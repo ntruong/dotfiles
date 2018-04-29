@@ -26,20 +26,21 @@ function! BeginEnd(type)
   delete
 endfunction
 inoremap <buffer> ;bg  <Esc>:call BeginEnd("")<CR>
-" Matrices
-function! Matrix()
+" Tabulated entries
+function! Array(type)
   call inputsave()
   let rows = input('Rows: ')
   let cols = input('Cols: ')
   call inputrestore()
   let align = ['l', 'r', 'c'][confirm('Align:', "&left\n&right\n&center", 2)-1]
   confirm
-  let matrix = ['\left[', '\begin{array}{'.repeat(align, rows).'}']
+  let matrix = ['\begin{'.a:type.'}{'.repeat(align, cols).'}']
   for r in range(rows)
     let matrix += [join(map(range(cols), '"##".r.";".v:val'), ' & ') . ' \\']
   endfor
-  let matrix += ['\end{array}', '\right]']
+  let matrix += ['\end{'.a:type.'}']
   call append('.', matrix)
+  delete
   redraw
   for r in range(rows)
     for c in range(cols)
@@ -52,6 +53,13 @@ function! Matrix()
       execute 'normal! cW'.entry
     endfor
   endfor
+endfunction
+function! Matrix()
+  let wrapper = ['\left[', '', '\right]']
+  call append('.', wrapper)
+  delete
+  call cursor(line('.') + 1, 0)
+  call Array('array')
 endfunction
 inoremap <buffer> ;mat <Esc>:call Matrix()<CR>
 " Compile and display functions
