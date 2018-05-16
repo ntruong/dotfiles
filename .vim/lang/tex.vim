@@ -7,12 +7,12 @@
 let b:commentflag = '%'
 set textwidth=80
 " Text display
-inoremap <buffer> ;bf \textbf{}<Space>(<>)<Esc>T{i
-inoremap <buffer> ;it \textit{}<Space>(<>)<Esc>T{i
-inoremap <buffer> ;ul \underline{}<Space>(<>)<Esc>T{i
-inoremap <buffer> ;em \emph{}<Space>(<>)<Esc>T{i
+inoremap <buffer> ;bf \textbf{}<Space><Esc>T{i
+inoremap <buffer> ;it \textit{}<Space><Esc>T{i
+inoremap <buffer> ;ul \underline{}<Space><Esc>T{i
+inoremap <buffer> ;em \emph{}<Space><Esc>T{i
 " Math stuff
-inoremap <buffer> ;mm   \[\]<Left><Left>
+inoremap <buffer> ;mm   \[\]<Esc>T[i<CR><Esc>O
 " \begin{} ... \end{}
 function! BeginEnd(type)
   let t = a:type
