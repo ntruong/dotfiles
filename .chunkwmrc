@@ -29,6 +29,7 @@ chunkc core::hotload 1
 # float   standard (chunkwm inactive)
 #
 chunkc set global_desktop_mode bsp
+chunkc set 1_desktop_tree /Users/ntruong/.chunkwm/dev
 
 #
 # Sets padding.
@@ -64,8 +65,8 @@ chunkc set window_region_locked          1
 # NOTE: shell commands require escaped quotes
 #       to pass value containing a whitespace.
 #
-# chunkc set mouse_modifier              \"cmd shift\"
-chunkc set mouse_modifier                fn
+chunkc set mouse_resize_window           \"fn 1\"
+chunkc set mouse_move_window             \"fn 2\"
 
 chunkc set preselect_border_color        0xffd75f5f
 chunkc set preselect_border_width        0
