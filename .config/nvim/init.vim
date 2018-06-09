@@ -170,11 +170,7 @@ set background=dark
 " Colorscheme
 colorscheme afterglow
 " User defined colors
-" highlight User1 ctermfg=254 ctermbg=196 cterm=bold
-" highlight User2 ctermfg=250 ctermbg=52
-" highlight User3 ctermfg=250 ctermbg=236
-" highlight User4 ctermfg=235 ctermbg=235
-" highlight SpecialKey ctermfg=254 ctermbg=196 cterm=bold
+highlight User1 ctermfg=none ctermbg=none cterm=bold
 " Display characters over 80th column
 augroup au_display
   autocmd!
@@ -238,19 +234,6 @@ set statusline+=[%2v]\                   " Virtual column number
 set statusline+=\ %{&fileformat}         " File format
 set statusline+=/%{&fileencoding?&fileencoding:&encoding}\  " File encoding
 set statusline+=\ <%{SL_Git_Branch()}\   " Git branch
-" set laststatus=2                              " Show statusline
-" "set statusline=
-" set statusline+=%1*\ %.1{SL_Mode()}>\ %*      " Current mode
-" set statusline+=%2*\ %y\ %*                   " File type
-" set statusline+=%3*\ %.40f\ %*                " File path
-" set statusline+=%2*%{AES_Flags()}%*           " Flags
-" set statusline+=%4*%=%*                       " Right side
-" set statusline+=%3*\ [%5l%*                   " Current line
-" set statusline+=%3*/%-5L]:%*                  " Total lines
-" set statusline+=%3*[%2v]\ %*                  " Virtual column number
-" set statusline+=%2*\ %{&fileformat}%*         " File format
-" set statusline+=%2*/%{&fileencoding?&fileencoding:&encoding}\ %* " File encoding
-" set statusline+=%1*\ <%{SL_Git_Branch()}\ %*  " Git branch
 " Tabline
 function! TL_Make() abort
   let tl = ''
@@ -273,12 +256,12 @@ function! TL_Make() abort
     if file == ''
       let file = '[blank]'
     endif
-    let tl .= (i == active) ? '%1* ' : '%3* '
+    let tl .= (i == active) ? '%1* ' : '%2* '
     let tl .= file
     let tl .= ' %*'
     let i += 1
   endwhile
-  let tl .= '%4*%=%*%2*%{AES_Flags()}%*'
+  let tl .= '%2*%=%{AES_Flags()}%*'
   return tl
 endfunction
 set showtabline=2
