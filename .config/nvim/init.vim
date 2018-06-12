@@ -169,13 +169,9 @@ nnoremap <silent> <Leader><BS> :call Strip_Trail()<CR>
 set background=dark
 " Colorscheme
 colorscheme afterglow
-" User defined colors
-highlight User1 ctermfg=none ctermbg=none cterm=bold
 " Display characters over 80th column
 augroup au_display
   autocmd!
-  " 80C line
-  autocmd BufEnter * let b:eightych = 0
   " Trailing whitespace
   autocmd InsertEnter * setlocal nolist
   autocmd InsertLeave * setlocal list
@@ -183,16 +179,6 @@ augroup au_display
   autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
   autocmd WinLeave * setlocal nocursorline
 augroup END
-function! Toggle80C() abort
-  if b:eightych
-    match Normal /\%81v.\+/
-    let b:eightych = 0
-  else
-    match User1 /\%81v.\+/
-    let b:eightych = 1
-  endif
-endfunction
-nnoremap <silent> <Leader>80 :call Toggle80C()<CR>
 " Buffer flags
 function! AES_Flags() abort
   let l:flags = ''
@@ -202,19 +188,6 @@ function! AES_Flags() abort
   return l:flags
 endfunction
 " Statusline
-function! SL_Mode() abort
-  let l:mode = mode()
-  if l:mode == 'n'
-    return 'N'
-  elseif l:mode == 'i'  " Insert mode
-    return 'I'
-  elseif l:mode == 'v'  " Visual mode
-    return 'V'
-  elseif l:mode == 't'  " Terminal mode
-    return '$'
-  endif
-  return l:mode
-endfunction
 function! Git_Branch() abort
   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
 endfunction
@@ -223,13 +196,12 @@ function! SL_Git_Branch() abort
   return (strlen(l:branchname) > 0) ? l:branchname : 'local'
 endfunction
 set statusline=
-set statusline+=\ %.1{SL_Mode()}>\       " Current mode
 set statusline+=\ %y\                    " File type
 set statusline+=\ %.40f\                 " File path
 set statusline+=%{AES_Flags()}           " Flags
 set statusline+=%=                       " Right side
-set statusline+=\ [%5l                   " Current line
-set statusline+=/%-5L]:                  " Total lines
+set statusline+=\ [%3l                   " Current line
+set statusline+=/%-3L]:                  " Total lines
 set statusline+=[%2v]\                   " Virtual column number
 set statusline+=\ %{&fileformat}         " File format
 set statusline+=/%{&fileencoding?&fileencoding:&encoding}\  " File encoding
@@ -256,12 +228,12 @@ function! TL_Make() abort
     if file == ''
       let file = '[blank]'
     endif
-    let tl .= (i == active) ? '%1* ' : '%2* '
+    let tl .= (i == active) ? '%#TabLineSel# ' : '%#TabLine# '
     let tl .= file
     let tl .= ' %*'
     let i += 1
   endwhile
-  let tl .= '%2*%=%{AES_Flags()}%*'
+  let tl .= '%#TabLineFill#%=%{AES_Flags()}%*'
   return tl
 endfunction
 set showtabline=2
