@@ -24,7 +24,6 @@ let s:white      = "ffffff"
 let s:foreground = "25292e"
 let s:background = "ffffff"
 let s:palegrey   = "77797b"
-let s:grey       = "6c7339"
 let s:orange     = "d4692b"
 let s:skyblue    = "bad7fb"
 let s:deepblue   = "012f5e"
@@ -45,7 +44,7 @@ fun <SID>X(group, fg, bg, attr)
 endfun
 
 " Preferred groups
-call <SID>X("Comment",    s:grey,     "",     "")
+call <SID>X("Comment",    s:palegrey, "",     "")
 call <SID>X("Constant",   s:blue,     "",     "")
 call <SID>X("String",     s:deepblue, "",     "")
 call <SID>X("Identifier", s:black,    "",     "")
@@ -88,7 +87,7 @@ call <SID>X("Normal",       s:black,    s:background, "")
 call <SID>X("NormalNC",     "",         "",           "")
 call <SID>X("Pmenu",        s:black,    s:line,       "")
 call <SID>X("PmenuSel",     s:white,    s:blue,       "")
-call <SID>X("PmenuSBar",    s:grey,     s:palegrey,   "")
+call <SID>X("PmenuSBar",    s:palegrey, s:palegrey,   "")
 " PmenuThumb
 call <SID>X("Question",     s:blue,     "",           "")
 call <SID>X("QuickFixLine", "",         s:blue,       "")
@@ -103,7 +102,7 @@ call <SID>X("StatusLineNC", s:line,     s:palegrey,   "")
 call <SID>X("TabLine",      s:palegrey, s:line,       "none")
 call <SID>X("TabLineFill",  s:line,     s:line,       "")
 call <SID>X("TabLineSel",   s:white,    s:blue,       "bold")
-call <SID>X("Title",        s:grey,     "",           "underline")
+call <SID>X("Title",        s:palegrey, "",           "underline")
 call <SID>X("Visual",       "",         s:skyblue,    "")
 call <SID>X("Visual",       "",         s:palegrey,   "")
 call <SID>X("WarningMsg",   s:black,    s:yellow,     "")
