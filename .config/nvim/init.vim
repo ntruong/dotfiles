@@ -168,7 +168,8 @@ nnoremap <silent> <Leader><BS> :call Strip_Trail()<CR>
 """ AESTHETICS:
 set background=dark
 " Colorscheme
-colorscheme afterglow
+set termguicolors
+colorscheme oblivion
 " Display characters over 80th column
 augroup au_display
   autocmd!
