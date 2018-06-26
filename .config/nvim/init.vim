@@ -48,7 +48,7 @@ nnoremap <silent> <Leader>mk :make<CR><CR>
 """ TEXT FUNCTIONS:
 " Autocomplete
 function! Tabbed_Autocomplete() abort
-  if col(".")>1 && strpart(getline("."), col(".") - 2, 3) =~ "^\w"
+  if col(".")>1 && strpart(getline("."), col(".") - 2, 3) =~ '^\w'
     return "\<C-n>"
   else
     return "\<Tab>"
