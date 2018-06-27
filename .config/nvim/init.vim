@@ -40,8 +40,9 @@ nnoremap <silent> <C-l> <C-w>l
 " Search and replace
 nnoremap <Leader>r :%s//g<Left><Left>
 vnoremap <Leader>r :s//g<Left><Left>
-" Make
+" Make and quickfix stuff
 nnoremap <silent> <Leader>mk :make<CR><CR>
+nnoremap <Leader>cc :tabnew<CR>:copen<CR>
 "===============================================================================
 
 "===============================================================================
@@ -270,7 +271,6 @@ augroup au_langs
   " Haskell
   autocmd filetype haskell setlocal makeprg=stack\ build
   autocmd filetype haskell setlocal errorformat=
-    \%C\ %\\+,
     \%E%>%f:%l:%c:\ error:,
     \%W%>%f:%l:%c:\ warning:,
     \%Z\ %\\+%m,
