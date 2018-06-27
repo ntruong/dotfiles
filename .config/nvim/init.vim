@@ -41,8 +41,10 @@ nnoremap <silent> <C-l> <C-w>l
 nnoremap <Leader>r :%s//g<Left><Left>
 vnoremap <Leader>r :s//g<Left><Left>
 " Make and quickfix stuff
-nnoremap <silent> <Leader>mk :make<CR><CR>
+nnoremap <silent> <Leader>mk :make!<CR>
 nnoremap <Leader>cc :tabnew<CR>:copen<CR>
+nnoremap <Leader>cn :cnext<CR>
+nnoremap <Leader>cp :cprev<CR>
 "===============================================================================
 
 "===============================================================================
