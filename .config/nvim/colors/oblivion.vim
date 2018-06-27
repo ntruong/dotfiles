@@ -91,7 +91,7 @@ call <SID>X("PmenuSel",     s:white,    s:blue,       "")
 call <SID>X("PmenuSBar",    s:palegrey, s:palegrey,   "")
 " PmenuThumb
 call <SID>X("Question",     s:blue,     "",           "")
-call <SID>X("QuickFixLine", "",         s:blue,       "")
+call <SID>X("QuickFixLine", s:white,    s:red,        "")
 call <SID>X("Search",       s:black,    s:skyblue,    "")
 call <SID>X("SpecialKey",   s:red,      "",           "")
 call <SID>X("SpellBad",     "",         "",           "undercurl")

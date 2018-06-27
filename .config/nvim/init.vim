@@ -268,7 +268,13 @@ augroup au_langs
   " C/C++
   autocmd filetype c,cpp call Load_File("c.vim")
   " Haskell
-  autocmd filetype haskell set makeprg="stack build"
+  autocmd filetype haskell setlocal makeprg=stack\ build
+  autocmd filetype haskell setlocal errorformat=
+    \%C\ %\\+,
+    \%E%>%f:%l:%c:\ error:,
+    \%W%>%f:%l:%c:\ warning:,
+    \%Z\ %\\+%m,
+    \%-G%.#
   autocmd filetype haskell let b:commentflag = "%"
   " Java
   autocmd filetype java call Load_File("java.vim")
