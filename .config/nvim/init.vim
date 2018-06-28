@@ -28,8 +28,9 @@ inoremap jk <Esc>
 nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:echo "Localized directory."<CR>
 " File opening: [open in window], [save], [save and exit], [exit]
 nnoremap <Leader>o :edit<Space>
-nnoremap <Leader>s :w<CR>
-nnoremap <Leader>q :q!<CR>
+nnoremap <Leader>s :write<CR>
+nnoremap <Leader>q :quit!<CR>
+nnoremap <Leader>Q :tabclose!<CR>
 " Tabbing: [new tab], [next tab], [previous tab]
 nnoremap <Leader>t :tabedit<CR>:edit<Space>
 " Split window navigation: [left] [down] [up] [right]
@@ -273,10 +274,10 @@ augroup au_langs
   " Haskell
   autocmd filetype haskell setlocal makeprg=stack\ build
   autocmd filetype haskell setlocal errorformat=
-    \%E%>%f:%l:%c:\ error:,
-    \%W%>%f:%l:%c:\ warning:,
+    \%E%f:%l:%c:\ error:,
+    \%W%f:%l:%c:\ warning:,
     \%Z\ %\\+%m,
-    \%-G%.#
+    \%-G%.%#
   autocmd filetype haskell let b:commentflag = "%"
   " Java
   autocmd filetype java call Load_File("java.vim")
