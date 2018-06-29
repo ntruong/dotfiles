@@ -197,7 +197,7 @@ augroup au_display
   autocmd WinLeave * setlocal nocursorline
 augroup END
 " Buffer flags
-function! AES_Flags() abort
+function! Modifiers() abort
   let l:flags = ""
   let l:flags .= (&modified ? " [+] " : "")  " Modified flag
   let l:flags .= (&readonly ? " [-] " : "")  " Readonly flag
@@ -205,57 +205,35 @@ function! AES_Flags() abort
   return l:flags
 endfunction
 " Statusline
-function! Git_Branch() abort
-  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-endfunction
-function! SL_Git_Branch() abort
-  let l:branchname = Git_Branch()
-  return (strlen(l:branchname) > 0) ? l:branchname : "local"
-endfunction
 set statusline=
 set statusline+=\ %y\                    " File type
 set statusline+=\ %.40f\                 " File path
-set statusline+=%{AES_Flags()}           " Flags
+set statusline+=%{Modifiers()}           " Flags
 set statusline+=%=                       " Right side
 set statusline+=\ [%3l                   " Current line
 set statusline+=/%-3L]:                  " Total lines
 set statusline+=[%2v]\                   " Virtual column number
 set statusline+=\ %{&fileformat}         " File format
 set statusline+=/%{&fileencoding?&fileencoding:&encoding}\  " File encoding
-set statusline+=\ <%{SL_Git_Branch()}\   " Git branch
 " Tabline
-function! TL_Make() abort
+function! Tabline() abort
   let tl = ""
-  let wn = ""
-  let active = tabpagenr()
-  let i = 1
-  while i <= tabpagenr("$")
-    let buflist = tabpagebuflist(i)
-    let winnr = tabpagewinnr(i)
-    let bufnr = buflist[winnr - 1]
-    let file = bufname(bufnr)
-    let buftype = getbufvar(bufnr, "buftype")
-    if buftype == "nofile"
-      if file =~"\/."
-        let file = substitute(file, ".*\/\ze.", "", "")
-      endif
-    else
-      let file = fnamemodify(file, ":p:t")
-    endif
-    if file == ""
-      let file = "[blank]"
-    endif
-    let tl .= (i == active) ? "%#TabLineSel# " : "%#TabLine# "
-    let tl .= file
+  for i in range(tabpagenr("$"))
+    let tabnr   = i + 1
+    let winnr   = tabpagewinnr(tabnr)
+    let buflist = tabpagebuflist(tabnr)
+    let bufnr   = buflist[winnr - 1]
+    let file    = fnamemodify(bufname(bufnr), ":t")
+    let tl .= (tabnr == tabpagenr()) ? "%#TabLineSel# " : "%#TabLine# "
+    let tl .= empty(file) ? "[blank]" : file
     let tl .= " %*"
-    let i += 1
-  endwhile
-  let tl .= "%#TabLineFill#%=%{AES_Flags()}%*"
+  endfor
+  let tl .= "%#TabLineFill#"
   return tl
 endfunction
 set showtabline=2
 if exists("+showtabline")
-  set tabline=%!TL_Make()
+  set tabline=%!Tabline()
 endif
 " Colorscheme tools
 nnoremap <silent> <Leader>S :echo
