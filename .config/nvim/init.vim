@@ -160,6 +160,24 @@ function! Strip_Trail() abort
   call cursor(l, c)
 endfunction
 nnoremap <silent> <Leader><BS> :call Strip_Trail()<CR>
+" Primitive surrounding capability
+function! Surround() abort
+  let l:pairs = {
+  \ "(" : "()",
+  \ "[" : "[]",
+  \ "{" : "{}",
+  \ "<" : "<>"
+  \ }
+  let l:char = nr2char(getchar())
+  let l:pair = has_key(l:pairs, l:char) ? l:pairs[l:char] : l:char . l:char
+  let l:obj = nr2char(getchar())
+  if index(["w", "W"], l:obj) >= 0
+    execute "normal! ci" . l:obj . l:pair . "\<Esc>P"
+  elseif index(["(", "[", "{"], l:obj) >= 0
+    execute "normal! ca" . l:obj . l:pair . "\<Esc>P"
+  endif
+endfunction
+nnoremap <silent> s :call Surround()<CR>
 "===============================================================================
 
 "===============================================================================
@@ -274,11 +292,13 @@ augroup au_langs
   " Haskell
   autocmd filetype haskell setlocal makeprg=stack\ build
   autocmd filetype haskell setlocal errorformat=
+    \%f:%l:%c:\ error:\ %m,
+    \%f:%l:%c:\ warning:\ %m,
     \%E%f:%l:%c:\ error:,
     \%W%f:%l:%c:\ warning:,
     \%Z\ %\\+%m,
     \%-G%.%#
-  autocmd filetype haskell let b:commentflag = "%"
+  autocmd filetype haskell let b:commentflag = "--"
   " Java
   autocmd filetype java call Load_File("java.vim")
   " LaTeX
