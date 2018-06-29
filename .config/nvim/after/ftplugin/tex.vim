@@ -3,10 +3,10 @@
 "==================================================
 
 "==================================================
-""" SETTINGS:
-let b:commentflag = '%'
-set textwidth=80
+setlocal makeprg=pdflatex\ -interaction\ nonstopmode\ %<
 " Text display
+setlocal textwidth=80
+" Text functions
 inoremap <buffer> ;bf \textbf{}<Space><Esc>T{i
 inoremap <buffer> ;it \textit{}<Space><Esc>T{i
 inoremap <buffer> ;ul \underline{}<Space><Esc>T{i
@@ -15,13 +15,13 @@ inoremap <buffer> ;em \emph{}<Space><Esc>T{i
 inoremap <buffer> ;mm   \[\]<Esc>T[i<CR><Esc>O
 " \begin{} ... \end{}
 function! BeginEnd(type)
-  let t = a:type
-  if !(strlen(a:type))
+  let l:t = a:type
+  if empty(a:type)
     call inputsave()
-    let t = input('Begin: ')
+    let l:t = input('Begin: ')
     call inputrestore()
   endif
-  let ins = ['\begin{'.t.'}', '\end{'.t.'}']
+  let ins = ['\begin{'.l:t.'}', '\end{'.l:t.'}']
   call append('.', ins)
   delete
 endfunction
@@ -62,14 +62,4 @@ function! Matrix()
   call Array('array')
 endfunction
 inoremap <buffer> ;mat <Esc>:call Matrix()<CR>
-" Compile and display functions
-function! CompileTex()
-  execute "!pdflatex ".expand('%:p')." > /dev/null"
-endfunction
-nnoremap <buffer> <Leader>cp :call CompileTex()<CR><CR>
-function! DisplayPdf()
-  let f = substitute(expand('%:p'), "\.tex$", "\.pdf", "")
-  execute "!open ".f
-endfunction
-nnoremap <buffer> <Leader>dp :call DisplayPdf()<CR><CR>
 "==================================================

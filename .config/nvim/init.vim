@@ -51,14 +51,14 @@ nnoremap <Leader>cp :cprev<CR>
 "===============================================================================
 """ TEXT FUNCTIONS:
 " Autocomplete
-function! Tabbed_Autocomplete() abort
+function! TabToAutocomplete() abort
   if col(".")>1 && strpart(getline("."), col(".") - 2, 3) =~ '^\w'
     return "\<C-n>"
   else
     return "\<Tab>"
   endif
 endfunction
-inoremap <Tab> <C-r>=Tabbed_Autocomplete()<CR>
+inoremap <Tab> <C-r>=TabToAutocomplete()<CR>
 " Autoclose braces
 function! Match_Close(open, close) abort
   let l:str = getline(".")
@@ -82,7 +82,7 @@ function! Match_Close(open, close) abort
   endif
   return value
 endfunction
-inoremap { {}<Left>
+" inoremap { {}<Left>
 inoremap ( ()<Left>
 inoremap [ []<Left>
 inoremap } <C-r>=Match_Close("{", "}")<CR>
@@ -151,7 +151,7 @@ endfunction
 nnoremap <C-_> i<C-r>=Autocomment()<CR>
 inoremap <C-_> <C-r>=Autocomment()<CR>i
 " Strip trailing whitespace
-function! Strip_Trail() abort
+function! StripTrail() abort
   let search=@/
   let l = line(".")
   let c = col(".")
@@ -159,7 +159,7 @@ function! Strip_Trail() abort
   let @/=search
   call cursor(l, c)
 endfunction
-nnoremap <silent> <Leader><BS> :call Strip_Trail()<CR>
+nnoremap <silent> <Leader><BS> :call StripTrail()<CR>
 " Primitive surrounding capability
 function! Surround() abort
   let l:pairs = {
@@ -254,41 +254,15 @@ nnoremap <Leader>] <C-w>}
 
 "===============================================================================
 """ FILETYPE SPECIFIC:
-" .vim file loader
-function! Load_File(file) abort
-  if !empty(globpath(&runtimepath, a:file))
-    execute "source " . globpath(&runtimepath, a:file)
-  endif
-endfunction
-if matchstr(&runtimepath, $HOME."/.vim/lang") == ""
-  let &runtimepath.=",".$HOME."/.vim/lang"
-endif
-augroup au_langs
+augroup Commenting
   autocmd!
-  " C/C++
-  autocmd filetype c,cpp call Load_File("c.vim")
-  " Haskell
-  autocmd filetype haskell setlocal makeprg=stack\ build
-  autocmd filetype haskell setlocal errorformat=
-    \%f:%l:%c:\ error:\ %m,
-    \%f:%l:%c:\ warning:\ %m,
-    \%E%f:%l:%c:\ error:,
-    \%W%f:%l:%c:\ warning:,
-    \%Z\ %\\+%m,
-    \%-G%.%#
+  autocmd filetype c,cpp   let b:commentflag = "//"
   autocmd filetype haskell let b:commentflag = "--"
-  " Java
-  autocmd filetype java call Load_File("java.vim")
-  " LaTeX
+  autocmd filetype java    let b:commentflag = "//"
+  autocmd filetype tex     let b:commentflag = "%"
+  autocmd filetype python  let b:commentflag = "#"
+  autocmd filetype r       let b:commentflag = "#"
+  autocmd filetype vim     let b:commentflag = "\""
   let g:tex_flavor = "latex"
-  autocmd filetype tex call Load_File("tex.vim")
-  " Markdown
-  autocmd filetype md,markdown call Load_File("md.vim")
-  " Python
-  autocmd filetype python call Load_File("python.vim")
-  " R
-  autocmd filetype r call Load_File("r.vim")
-  " VimScript
-  autocmd filetype vim call Load_File("vim.vim")
 augroup END
 "===============================================================================
