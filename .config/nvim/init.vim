@@ -137,19 +137,24 @@ endfunction
 inoremap <CR> <C-r>=Brace_Opener()<CR>
 " Autocommenting
 function! Autocomment() abort
-  let begin = strpart(getline("."), 0, strlen(b:commentflag))
-  let c = col(".")
-  if begin == b:commentflag
-    let c -= strlen(b:commentflag) + 1
-    let c = (c > 0) ? c : 0
-    return "\<Esc>0".(strlen(b:commentflag) + 1)."x".c."|"
-  else
-    let c += strlen(b:commentflag) + 1
-    return "\<Esc>0i".b:commentflag." \<Esc>".c."|"
+  if !exists("b:comment")
+    return
   endif
+  let l:line  = getline(".")
+  let l:begin = strpart(l:line, match(l:line, '\S'), strlen(b:comment))
+  let l:c     = col(".")
+  let l:cmd   = ""
+  if l:begin == b:comment
+    let l:c -= strlen(b:comment) + 1
+    let l:c = (l:c > 0) ? l:c : 0
+    execute "normal! _dW"
+  else
+    let l:c += strlen(b:comment) + 1
+    execute "normal! I" . b:comment . " "
+  endif
+  call cursor(".", l:c)
 endfunction
-nnoremap <C-_> i<C-r>=Autocomment()<CR>
-inoremap <C-_> <C-r>=Autocomment()<CR>i
+nnoremap <silent> <C-_> :call Autocomment()<CR>
 " Strip trailing whitespace
 function! StripTrail() abort
   let search=@/
@@ -256,13 +261,13 @@ nnoremap <Leader>] <C-w>}
 """ FILETYPE SPECIFIC:
 augroup Commenting
   autocmd!
-  autocmd filetype c,cpp   let b:commentflag = "//"
-  autocmd filetype haskell let b:commentflag = "--"
-  autocmd filetype java    let b:commentflag = "//"
-  autocmd filetype tex     let b:commentflag = "%"
-  autocmd filetype python  let b:commentflag = "#"
-  autocmd filetype r       let b:commentflag = "#"
-  autocmd filetype vim     let b:commentflag = "\""
+  autocmd filetype c,cpp   let b:comment = "//"
+  autocmd filetype haskell let b:comment = "--"
+  autocmd filetype java    let b:comment = "//"
+  autocmd filetype tex     let b:comment = "%"
+  autocmd filetype python  let b:comment = "#"
+  autocmd filetype r       let b:comment = "#"
+  autocmd filetype vim     let b:comment = "\""
   let g:tex_flavor = "latex"
 augroup END
 "===============================================================================
