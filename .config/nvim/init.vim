@@ -6,8 +6,6 @@
 """ BASIC OPTION SETTING:
 set encoding=utf-8          " Use UTF-8
 set previewheight=20        " Preview window height
-set number                  " Line numbering
-set relativenumber          " Relative line numbering
 set cursorline              " Highlight current line
 set scrolloff=3             " Keep 3 lines above and below cursor
 set wrap                    " Word wrap
@@ -182,7 +180,7 @@ function! Surround() abort
     execute "normal! ca" . l:obj . l:pair . "\<Esc>P"
   endif
 endfunction
-nnoremap <silent> s :call Surround()<CR>
+nnoremap <silent> ys :call Surround()<CR>
 "===============================================================================
 
 "===============================================================================
