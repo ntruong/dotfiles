@@ -39,6 +39,12 @@ nnoremap <silent> <C-l> <C-w>l
 " Search and replace
 nnoremap <Leader>r :%s//g<Left><Left>
 vnoremap <Leader>r :s//g<Left><Left>
+" Keep only important jumps on the jumplist
+nnoremap  / m`:keepjumps /
+nnoremap <silent> { :keepjumps normal! {<CR>
+nnoremap <silent> } :keepjumps normal! }<CR>
+nnoremap <silent> # :keepjumps normal! *#<CR>
+nnoremap <silent> * :keepjumps normal! #*<CR>
 " Make and quickfix stuff
 nnoremap <silent> <Leader>mk :make!<CR>
 nnoremap <Leader>cc :tabnew<CR>:copen<CR>
@@ -80,7 +86,7 @@ function! Match_Close(open, close) abort
   endif
   return value
 endfunction
-" inoremap { {}<Left>
+inoremap { {}<Left>
 inoremap ( ()<Left>
 inoremap [ []<Left>
 inoremap } <C-r>=Match_Close("{", "}")<CR>
