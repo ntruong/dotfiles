@@ -62,7 +62,7 @@ call <SID>X("Todo",       s:magenta,  s:background, "bold")
 
 " Standard highlighting
 call <SID>X("ColorColumn",  "",         s:line,       "")
-" Conceal
+call <SID>X("Conceal",      s:black,    s:background, "")
 call <SID>X("Cursor",       "",         "",           "reverse")
 call <SID>X("CursorColumn", "",         s:line,       "")
 call <SID>X("CursorLine",   "",         s:line,       "")
