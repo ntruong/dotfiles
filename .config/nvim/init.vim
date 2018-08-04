@@ -10,12 +10,31 @@ set textwidth=80            " Keep columns legible
 set cursorline              " Highlight current line
 set scrolloff=3             " Keep 3 lines above and below cursor
 set wrap                    " Word wrap
-set expandtab               " Insert tabs as spaces
 set inccommand=nosplit      " Incremental commands
+set expandtab               " Insert tabs as spaces
 set tabstop=2               " Number of spaces a tab counts for
 set shiftwidth=2            " Number of spaces a tab counts for
 set conceallevel=2          " Hide things
 set noswapfile              " No swapfile
+"===============================================================================
+
+"===============================================================================
+""" PLUGINS:
+call plug#begin('~/.vim/plugged')
+
+" LSP Settings
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+let g:LanguageClient_serverCommands = {
+    \ 'haskell': ['hie-wrapper', '--lsp'],
+    \ }
+
+" nnoremap K :call LanguageClient_textDocument_hover()<CR>
+
+call plug#end()
 "===============================================================================
 
 "===============================================================================
@@ -33,9 +52,8 @@ nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:echo "Localized directory."<CR>
 nnoremap <Leader>o :edit<Space>
 nnoremap <Leader>s :write<CR>
 nnoremap <Leader>q :quit!<CR>
-nnoremap <Leader>Q :tabclose!<CR>
 
-" Tabbing: [new tab], [next tab], [previous tab]
+" Tabbing
 nnoremap <Leader>t :tabedit<CR>:edit<Space>
 
 " Split window navigation: [left] [down] [up] [right]
@@ -47,12 +65,6 @@ nnoremap <silent> <C-l> <C-w>l
 " Search and replace
 nnoremap <Leader>r :%s//g<Left><Left>
 vnoremap <Leader>r :s//g<Left><Left>
-
-" Keep only important jumps on the jumplist
-nnoremap <silent> { :keepjumps normal! {<CR>
-nnoremap <silent> } :keepjumps normal! }<CR>
-nnoremap <silent> # :keepjumps normal! *#<CR>
-nnoremap <silent> * :keepjumps normal! #*<CR>
 
 " Make and quickfix stuff
 nnoremap <silent> <Leader>mk :make!<CR>
