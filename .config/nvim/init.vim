@@ -62,6 +62,12 @@ nnoremap <silent> <C-j> <C-w>j
 nnoremap <silent> <C-k> <C-w>k
 nnoremap <silent> <C-l> <C-w>l
 
+" Make arrows resize splits
+nnoremap <Left>  <C-w><
+nnoremap <Down>  <C-w>-
+nnoremap <Up>    <C-w>+
+nnoremap <Right> <C-w>>
+
 " Search and replace
 nnoremap <Leader>r :%s//g<Left><Left>
 vnoremap <Leader>r :s//g<Left><Left>
