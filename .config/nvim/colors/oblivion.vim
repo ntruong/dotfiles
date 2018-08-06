@@ -2,8 +2,6 @@
 " Author: Nicholas Truong <nt31415@gmail.com>
 " Vim color file - Oblivion (true color only)
 
-set background=light
-
 highlight clear
 if exists("syntax_on")
   syntax reset
@@ -106,7 +104,6 @@ call <SID>X("TabLine",      s:palegrey, s:line,       "none")
 call <SID>X("TabLineFill",  s:line,     s:line,       "")
 call <SID>X("TabLineSel",   s:white,    s:blue,       "bold")
 call <SID>X("Title",        s:palegrey, "",           "underline")
-call <SID>X("Visual",       "",         s:skyblue,    "")
 call <SID>X("Visual",       "",         s:line,       "")
 call <SID>X("WarningMsg",   s:black,    s:yellow,     "")
 call <SID>X("Whitespace",   s:skyblue,  "",           "")

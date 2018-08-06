@@ -259,7 +259,7 @@ nnoremap <silent> <Leader>f :call Sneak()<CR>
 """ AESTHETICS:
 " Colorscheme
 set termguicolors
-colorscheme oblivion
+colorscheme transcendence
 augroup au_display
   autocmd!
   " Trailing whitespace
