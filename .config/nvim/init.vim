@@ -262,9 +262,6 @@ augroup au_display
   " Trailing whitespace
   autocmd InsertEnter * setlocal nolist
   autocmd InsertLeave * setlocal list
-  " Cursorline on active window
-  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  autocmd WinLeave * setlocal nocursorline
 augroup END
 
 " Buffer flags
