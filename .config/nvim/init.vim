@@ -7,7 +7,6 @@
 set encoding=utf-8          " Use UTF-8
 set previewheight=20        " Preview window height
 set textwidth=80            " Keep columns legible
-set cursorline              " Highlight current line
 set scrolloff=3             " Keep 3 lines above and below cursor
 set wrap                    " Word wrap
 set inccommand=nosplit      " Incremental commands
@@ -31,8 +30,6 @@ Plug 'autozimu/LanguageClient-neovim', {
 let g:LanguageClient_serverCommands = {
     \ 'haskell': ['hie-wrapper', '--lsp'],
     \ }
-
-" nnoremap K :call LanguageClient_textDocument_hover()<CR>
 
 call plug#end()
 "===============================================================================
@@ -300,9 +297,10 @@ function! Tabline() abort
     let buflist = tabpagebuflist(tabnr)
     let bufnr   = buflist[winnr - 1]
     let file    = fnamemodify(bufname(bufnr), ":t")
-    let tl .= (tabnr == tabpagenr()) ? "%#TabLineSel# " : "%#TabLine# "
-    let tl .= empty(file) ? "[blank]" : file
-    let tl .= " %*"
+    let tl .= " "
+    let tl .= (tabnr == tabpagenr()) ? "%#TabLineSel#" : "%#TabLine#"
+    let tl .= empty(file) ? "scratch" : file
+    let tl .= "%* "
   endfor
   let tl .= "%#TabLineFill#"
   return tl
@@ -311,13 +309,6 @@ set showtabline=2
 if exists("+showtabline")
   set tabline=%!Tabline()
 endif
-
-" Colorscheme tools
-nnoremap <silent> <Leader>S :echo
-      \"<".synIDattr(synID(line("."),col("."),1),"name").">".
-      \"<".synIDattr(synID(line("."),col("."),0), "name").">".
-      \"<".synIDattr(synIDtrans(synID(line("."),col("."),1)),"name").">"<CR>
-nnoremap <Leader>;; yy:@"<CR>
 "===============================================================================
 
 "===============================================================================

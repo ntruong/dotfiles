@@ -25,7 +25,7 @@ let s:line       = "35393e"
 let s:palegrey   = "77797b"
 let s:orange     = "e17859"
 let s:skyblue    = "bad7fb"
-let s:violet     = "6848ba"
+let s:violet     = "876dc8"
 
 " Highlight a group
 fun <SID>X(group, fg, bg, attr)
@@ -70,13 +70,13 @@ call <SID>X("DiffText",     s:palegrey,   s:skyblue,    "")
 call <SID>X("ErrorMsg",     s:white,      s:red,        "")
 call <SID>X("VertSplit",    s:background, s:background, "")
 call <SID>X("Folded",       s:palegrey,   s:line,       "")
-call <SID>X("FoldColumn",   s:palegrey,   s:line,       "")
-call <SID>X("SignColumn",   "",           s:line,       "")
+call <SID>X("FoldColumn",   s:palegrey,   s:background, "")
+call <SID>X("SignColumn",   "",           s:background, "")
 call <SID>X("IncSearch",    s:black,      s:yellow,     "none")
 call <SID>X("Substitute",   s:black,      s:yellow,     "none")
 call <SID>X("LineNr",       s:palegrey,   "",           "")
 call <SID>X("CursorLineNr", s:cyan,       "",           "")
-call <SID>X("MatchParen",   "",           s:skyblue,    "")
+call <SID>X("MatchParen",   "",           s:palegrey,   "")
 call <SID>X("ModeMsg",      s:cyan,       "",           "")
 " MoreMsg
 call <SID>X("NonText",      s:red,        "",           "")
