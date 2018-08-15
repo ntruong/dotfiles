@@ -14,24 +14,8 @@ set expandtab               " Insert tabs as spaces
 set tabstop=2               " Number of spaces a tab counts for
 set shiftwidth=2            " Number of spaces a tab counts for
 set conceallevel=2          " Hide things
+set nojoinspaces            " No double space when joining lines
 set noswapfile              " No swapfile
-"===============================================================================
-
-"===============================================================================
-""" PLUGINS:
-call plug#begin('~/.vim/plugged')
-
-" LSP Settings
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-
-let g:LanguageClient_serverCommands = {
-    \ 'haskell': ['hie-wrapper', '--lsp'],
-    \ }
-
-call plug#end()
 "===============================================================================
 
 "===============================================================================
