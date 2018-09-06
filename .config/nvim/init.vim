@@ -13,7 +13,6 @@ set inccommand=nosplit      " Incremental commands
 set expandtab               " Insert tabs as spaces
 set tabstop=2               " Number of spaces a tab counts for
 set shiftwidth=2            " Number of spaces a tab counts for
-set conceallevel=2          " Hide things
 set nojoinspaces            " No double space when joining lines
 set noswapfile              " No swapfile
 "===============================================================================
