@@ -7,10 +7,11 @@ setlocal makeprg=pdflatex\ -interaction\ nonstopmode\ %<
 " Text display
 setlocal textwidth=80
 " Text functions
-inoremap <buffer> ;bf \textbf{}<Esc>T{i
-inoremap <buffer> ;it \textit{}<Esc>T{i
-inoremap <buffer> ;ul \underline{}<Esc>T{i
-inoremap <buffer> ;em \emph{}<Esc>T{i
+inoremap <buffer> ;bf \textbf{}<Left>
+inoremap <buffer> ;it \textit{}<Left>
+inoremap <buffer> ;ul \underline{}<Left>
+inoremap <buffer> ;em \emph{}<Left>
+inoremap <buffer> /   \
 " Math stuff
 inoremap <buffer> ;mm \[\]<Esc>T[i<CR><Esc>O
 inoremap <buffer> ;mb \mathbb{}<Esc>T{i
