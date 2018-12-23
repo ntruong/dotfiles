@@ -64,14 +64,14 @@ nnoremap <Leader>cp :cprev<CR>
 """ TEXT FUNCTIONS:
 " Autocomplete
 function! TabToAutocomplete() abort
-  if col(".")>1 && strpart(getline("."), col(".") - 2, 3) =~ '^\w'
+  if col(".") > 1 && strpart(getline("."), col(".") - 2, 3) =~ '^\w'
     return "\<C-n>"
     " return "\<C-x>\<C-o>"
   else
     return "\<Tab>"
   endif
 endfunction
-inoremap <Tab> <C-r>=TabToAutocomplete()<CR>
+inoremap <expr> <Tab> TabToAutocomplete()
 
 " Autoclose braces
 function! Match_Close(open, close) abort
@@ -99,9 +99,9 @@ endfunction
 inoremap { {}<Left>
 inoremap ( ()<Left>
 inoremap [ []<Left>
-inoremap } <C-r>=Match_Close("{", "}")<CR>
-inoremap ) <C-r>=Match_Close("(", ")")<CR>
-inoremap ] <C-r>=Match_Close("[", "]")<CR>
+inoremap <expr> } Match_Close("{", "}")
+inoremap <expr> ) Match_Close("(", ")")
+inoremap <expr> ] Match_Close("[", "]")
 
 " Autoclose quotes
 function! Match_Quote(ch) abort
@@ -128,8 +128,8 @@ function! Match_Quote(ch) abort
   endif
   return value
 endfunction
-inoremap " <C-r>=Match_Quote("\"")<CR>
-inoremap ' <C-r>=Match_Quote("\'")<CR>
+inoremap <expr> " Match_Quote("\"")
+inoremap <expr> ' Match_Quote("\'")
 
 " Autoremove paired braces and quotes
 function! Match_Remove() abort
@@ -141,7 +141,7 @@ function! Match_Remove() abort
   endif
   return "\<BS>"
 endfunction
-inoremap <BS> <C-r>=Match_Remove()<CR>
+inoremap <expr> <BS> Match_Remove()
 
 " Autoindent and open braces
 function! Brace_Opener() abort
@@ -151,7 +151,7 @@ function! Brace_Opener() abort
   endif
   return "\<CR>"
 endfunction
-inoremap <CR> <C-r>=Brace_Opener()<CR>
+inoremap <expr> <CR> Brace_Opener()
 
 " Autocommenting
 function! Autocomment() abort
@@ -309,6 +309,7 @@ augroup Commenting
   autocmd filetype tex     let b:comment = "%"
   autocmd filetype python  let b:comment = "#"
   autocmd filetype r       let b:comment = "#"
+  autocmd filetype scala   let b:comment = "//"
   autocmd filetype vim     let b:comment = "\""
   let g:tex_flavor = "latex"
 augroup END

@@ -6,6 +6,7 @@
 setlocal makeprg=pdflatex\ -interaction\ nonstopmode\ %<
 " Text display
 setlocal textwidth=80
+filetype indent off
 " Text functions
 inoremap <buffer> ;bf \textbf{}<Left>
 inoremap <buffer> ;it \textit{}<Left>
