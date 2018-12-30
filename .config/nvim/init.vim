@@ -204,36 +204,50 @@ function! Surround() abort
 endfunction
 nnoremap <silent> ys :call Surround()<CR>
 
-" Enhanced in-line motion
-function! Sneak() abort
-  let l:matchable = nr2char(getchar())
-  let l:line = getline(".")
-  let l:lnum = line(".")
-  let l:cnum = 1
-  let l:mnum = 1
-  for l:ch in split(l:line, '\zs\ze')
-    if l:ch == l:matchable
-      call matchaddpos("Conceal",
-        \ [[l:lnum, l:cnum]],
-        \ 1,
-        \ -1,
-        \ {"conceal": l:mnum}
-        \ )
-      let l:mnum += 1
+
+" Live-update current-directory level grep
+function! FSearch()
+  " Store the current input character.
+  let l:cin = ''
+  " Store the current search pattern.
+  let l:input = ''
+  " Open the location window.
+  call setloclist(0, [])
+  silent execute 'lopen ' . float2nr(min([10, float2nr(0.2 * winheight(0))]))
+  " Continue to accept input while <Esc> or <BS> are not given.
+  while l:cin !~ '[\e\r]'
+    " It matches backspace - remove the last character.
+    if l:cin == "\<BS>"
+      let l:input = l:input[:-2]
+    else
+      let l:input .= l:cin
     endif
-    let l:cnum += 1
-  endfor
-  let l:cc = &concealcursor
-  let &concealcursor = "n"
-  redraw
-  let l:mid = nr2char(getchar())
-  if l:mid =~ '\d' && l:mid < l:mnum
-    execute "normal! 0" . l:mid . "f" . l:matchable
+    " Empty the location list if the search pattern is empty.
+    if strlen(l:input) == 0
+      call setloclist(0, [])
+    " Refrain from updating the list if the pattern is invalid.
+    elseif l:input =~ '\\$'
+    " Use grep to update the location list.
+    else
+      silent execute 'lgrep! -r -E "' . l:input . '" .'
+    endif
+    " Prompt the user.
+    redraw
+    echo '↯ ' . l:input
+    let l:cin = getchar()
+    " Check for <BS>.
+    if l:cin != "\<BS>"
+      let l:cin = nr2char(l:cin)
+    endif
+  endwhile
+  " Clear the location list and close the location window if the user wanted to
+  " escape filesearch.
+  if l:cin =~ '\e'
+    call setloclist(0, [])
+    lclose
   endif
-  let &concealcursor = l:cc
-  call clearmatches()
 endfunction
-nnoremap <silent> <Leader>f :call Sneak()<CR>
+nnoremap <silent> <Leader>f :call FSearch()<CR>
 "===============================================================================
 
 "===============================================================================
