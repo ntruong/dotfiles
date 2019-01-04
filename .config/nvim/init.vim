@@ -189,23 +189,47 @@ endfunction
 nnoremap <silent> <Leader><BS> :call StripTrail()<CR>
 
 " Primitive surrounding capability
-function! Surround() abort
-  let l:pairs = {
-  \ "(" : "()",
-  \ "[" : "[]",
-  \ "{" : "{}",
-  \ "<" : "<>"
-  \ }
-  let l:obj = nr2char(getchar())
-  let l:char = nr2char(getchar())
-  let l:pair = has_key(l:pairs, l:char) ? l:pairs[l:char] : l:char . l:char
-  if index(["w", "W"], l:obj) >= 0
-    execute "normal! ci" . l:obj . l:pair . "\<Esc>P"
-  elseif index(["(", "[", "{"], l:obj) >= 0
-    execute "normal! ca" . l:obj . l:pair . "\<Esc>P"
+function! Surround()
+  " Listen for updates to the command line.
+  augroup Cmdline
+    autocmd!
+    autocmd CmdlineChanged * call s:SurroundPrompt(getcmdline())
+  augroup END
+  " Get the selected object and surround character(s).
+  let l:cmd = input('surround ↯ ')[2:]
+  " Clear the autogroup.
+  augroup Cmdline
+    autocmd!
+  augroup END
+  " Only continue if we are in visual mode.
+  if mode() != 'v'
+    return
   endif
+  " Pairs to surround text with.
+  let l:pairs = {
+  \ '(' : '()',
+  \ '[' : '[]',
+  \ '{' : '{}',
+  \ '<' : '<>'
+  \ }
+  " Surround the text.
+  let l:txt = has_key(l:pairs, l:cmd) ? l:pairs[l:cmd] : l:cmd . l:cmd
+  execute 'normal! c' . l:txt . "\<Esc>Pl%"
 endfunction
-nnoremap <silent> ys :call Surround()<CR>
+function! s:SurroundPrompt(cmd)
+  " If we are currently in visual mode, toggle visual mode again to prepare to
+  " select more text.
+  if mode() == 'v'
+    execute 'normal! v'
+  endif
+  " Only select text if we have an appropriate query string.
+  if a:cmd =~ '[ia].*'
+    execute 'normal! v' . a:cmd
+  endif
+  " Update for changes.
+  redraw
+endfunction
+nnoremap <silent> gs :call Surround()<CR>
 "===============================================================================
 
 "===============================================================================
