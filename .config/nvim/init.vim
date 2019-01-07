@@ -224,7 +224,7 @@ function! s:SurroundPrompt(cmd)
   endif
   " Only select text if we have an appropriate query string.
   if a:cmd =~ '[ia].*'
-    execute 'normal! v' . a:cmd
+    execute 'normal! v' . a:cmd[0:1]
   endif
   " Update for changes.
   redraw
