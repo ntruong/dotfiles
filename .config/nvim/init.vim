@@ -195,6 +195,8 @@ function! Surround()
     autocmd!
     autocmd CmdlineChanged * call s:SurroundPrompt(getcmdline())
   augroup END
+  " Mark the current location.
+  execute 'normal! m`'
   " Get the selected object and surround character(s).
   let l:cmd = input('surround ↯ ')[2:]
   " Clear the autogroup.
@@ -214,7 +216,7 @@ function! Surround()
   \ }
   " Surround the text.
   let l:txt = has_key(l:pairs, l:cmd) ? l:pairs[l:cmd] : l:cmd . l:cmd
-  execute 'normal! c' . l:txt . "\<Esc>Pl%"
+  execute 'normal! c' . l:txt . "\<Esc>P``"
 endfunction
 function! s:SurroundPrompt(cmd)
   " If we are currently in visual mode, toggle visual mode again to prepare to
