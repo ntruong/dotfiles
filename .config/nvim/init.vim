@@ -25,9 +25,6 @@ let mapleader = "\<Space>"
 " Escape
 inoremap jk <Esc>
 
-" Enter commands.
-nnoremap <CR> :
-
 " Clear highlighting.
 nnoremap <silent> <Esc> :nohlsearch<CR>
 
