@@ -10,7 +10,7 @@ endif
 let g:colors_name = "transcendence"
 
 " Color palette
-let s:black      = "25292e"
+let s:black      = "77797b"
 let s:red        = "bf454c"
 let s:green      = "45bf7b"
 let s:yellow     = "eedf07"
@@ -22,7 +22,6 @@ let s:white      = "ffffff"
 let s:foreground = "ffffff"
 let s:background = "25292e"
 let s:line       = "35393e"
-let s:palegrey   = "77797b"
 let s:orange     = "e17859"
 let s:skyblue    = "bad7fb"
 let s:violet     = "876dc8"
@@ -41,7 +40,7 @@ fun <SID>X(group, fg, bg, attr)
 endfun
 
 " Preferred groups
-call <SID>X("Comment",    s:palegrey,     "",           "")
+call <SID>X("Comment",    s:black,        "",           "")
 call <SID>X("Constant",   s:orange,       "",           "")
 call <SID>X("String",     s:cyan,         "",           "")
 call <SID>X("Identifier", s:white,        "",           "")
@@ -52,7 +51,7 @@ call <SID>X("Type",       s:red,          "",           "")
 call <SID>X("Special",    s:red,          "",           "")
 call <SID>X("Tag",        s:orange,       "",           "")
 call <SID>X("Underlined", s:orange,       "",           "underline")
-call <SID>X("Ignore",     s:black,        "",           "")
+call <SID>X("Ignore",     s:background,   "",           "")
 call <SID>X("Error",      s:white,        s:red,        "")
 call <SID>X("Todo",       s:magenta,      s:background, "bold")
 
@@ -62,46 +61,46 @@ call <SID>X("Conceal",      s:foreground, s:background, "")
 call <SID>X("Cursor",       "",           "",           "reverse")
 call <SID>X("CursorColumn", "",           s:line,       "")
 call <SID>X("CursorLine",   "",           s:line,       "")
-call <SID>X("Directory",    s:palegrey,   "",           "")
+call <SID>X("Directory",    s:black,      "",           "")
 call <SID>X("DiffAdd",      s:white,      s:green,      "")
 call <SID>X("DiffChange",   "",           s:background, "")
 call <SID>X("DiffDelete",   s:red,        s:red,        "")
-call <SID>X("DiffText",     s:palegrey,   s:skyblue,    "")
+call <SID>X("DiffText",     s:black,      s:skyblue,    "")
 call <SID>X("ErrorMsg",     s:white,      s:red,        "")
 call <SID>X("VertSplit",    s:background, s:background, "")
-call <SID>X("Folded",       s:palegrey,   s:line,       "")
-call <SID>X("FoldColumn",   s:palegrey,   s:background, "")
+call <SID>X("Folded",       s:black,      s:line,       "")
+call <SID>X("FoldColumn",   s:black,      s:background, "")
 call <SID>X("SignColumn",   "",           s:background, "")
-call <SID>X("IncSearch",    s:black,      s:yellow,     "none")
-call <SID>X("Substitute",   s:black,      s:yellow,     "none")
-call <SID>X("LineNr",       s:palegrey,   "",           "")
+call <SID>X("IncSearch",    s:background, s:yellow,     "none")
+call <SID>X("Substitute",   s:background, s:yellow,     "none")
+call <SID>X("LineNr",       s:black,      "",           "")
 call <SID>X("CursorLineNr", s:cyan,       "",           "")
-call <SID>X("MatchParen",   "",           s:palegrey,   "")
+call <SID>X("MatchParen",   "",           s:black,      "")
 call <SID>X("ModeMsg",      s:cyan,       "",           "")
 " MoreMsg
 call <SID>X("NonText",      s:red,        "",           "")
 call <SID>X("Normal",       s:foreground, s:background, "")
 call <SID>X("NormalNC",     "",           "",           "")
-call <SID>X("Pmenu",        s:palegrey,   s:line,       "")
-call <SID>X("PmenuSel",     s:cyan,       s:palegrey,   "")
-call <SID>X("PmenuSBar",    s:palegrey,   s:palegrey,   "")
+call <SID>X("Pmenu",        s:black,      s:line,       "")
+call <SID>X("PmenuSel",     s:cyan,       s:black,      "")
+call <SID>X("PmenuSBar",    s:black,      s:black,      "")
 " PmenuThumb
 call <SID>X("Question",     s:blue,       "",           "")
 call <SID>X("QuickFixLine", s:white,      s:red,        "")
-call <SID>X("Search",       s:black,      s:skyblue,    "")
+call <SID>X("Search",       s:background, s:skyblue,    "")
 call <SID>X("SpecialKey",   s:red,        "",           "")
 call <SID>X("SpellBad",     "",           "",           "undercurl")
 call <SID>X("SpellCap",     "",           "",           "undercurl")
 call <SID>X("SpellLocal",   "",           "",           "undercurl")
 call <SID>X("SpellRare",    "",           "",           "undercurl")
 call <SID>X("StatusLine",   s:cyan,       s:background, "none")
-call <SID>X("StatusLineNC", s:palegrey,   "",           "none")
-call <SID>X("TabLine",      s:palegrey,   s:background, "none")
+call <SID>X("StatusLineNC", s:black,      "",           "none")
+call <SID>X("TabLine",      s:black,      s:background, "none")
 call <SID>X("TabLineFill",  "",           "",           "none")
 call <SID>X("TabLineSel",   s:cyan,       "",           "none")
-call <SID>X("Title",        s:palegrey,   "",           "underline")
+call <SID>X("Title",        s:black,      "",           "underline")
 call <SID>X("Visual",       "",           s:line,       "")
-call <SID>X("WarningMsg",   s:black,      s:yellow,     "")
+call <SID>X("WarningMsg",   s:background, s:yellow,     "")
 call <SID>X("Whitespace",   s:cyan,       "",           "")
 call <SID>X("WildMenu",     s:cyan,       s:line,       "")
 
