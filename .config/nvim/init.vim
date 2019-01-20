@@ -223,7 +223,7 @@ function! s:SurroundPrompt(cmd)
   endif
   " Only select text if we have an appropriate query string.
   if a:cmd =~ '[ia].*'
-    execute 'normal! v' . a:cmd[0:1]
+    execute 'normal! v' . a:cmd[0:1] . 'o'
   endif
   " Update for changes.
   redraw
