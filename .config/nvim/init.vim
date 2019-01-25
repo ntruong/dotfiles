@@ -26,7 +26,7 @@ let mapleader = "\<Space>"
 inoremap jk <Esc>
 
 " Clear highlighting.
-nnoremap <silent> <Esc> :nohlsearch<CR>
+nnoremap <silent> <Esc> :nohlsearch<CR>:call clearmatches()<CR>
 
 " Localize directory
 nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:echo "Localized directory."<CR>
@@ -229,6 +229,15 @@ function! s:SurroundPrompt(cmd)
   redraw
 endfunction
 nnoremap <silent> gs :call Surround()<CR>
+
+" Highlight the current match when searching with n/N.
+function! CurrentSearch(ch)
+  call clearmatches()
+  call matchadd("IncSearch", '\%#' . @/)
+  return a:ch
+endfunction
+nnoremap <expr> <silent> n CurrentSearch("n")
+nnoremap <expr> <silent> N CurrentSearch("N")
 "===============================================================================
 
 "===============================================================================
