@@ -244,7 +244,7 @@ nnoremap <expr> <silent> N CurrentSearch("N")
 """ AESTHETICS:
 " Colorscheme
 set termguicolors
-colorscheme iridescence
+colorscheme transcendence
 
 " No visible vertical split separators.
 set fillchars=vert:\ ,diff:\ 
