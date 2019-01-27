@@ -245,9 +245,13 @@ nnoremap <expr> <silent> N CurrentSearch("N")
 " Colorscheme
 set termguicolors
 colorscheme transcendence
+
+" No visible vertical split separators.
+set fillchars=vert:\ 
+
+" Trailing whitespace
 augroup au_display
   autocmd!
-  " Trailing whitespace
   autocmd InsertEnter * setlocal nolist
   autocmd InsertLeave * setlocal list
 augroup END
