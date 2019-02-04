@@ -4,22 +4,16 @@
 
 "===============================================================================
 """ BASIC OPTION SETTING:
-if !exists("g:syntax_on")   " Turn on syntax highlighting
-  syntax enable
-endif
-filetype plugin indent on   " Turn on filetype checking and indentation
 set encoding=utf-8          " Use UTF-8
 set previewheight=20        " Preview window height
 set textwidth=80            " Keep columns legible
-set cursorline              " Highlight current line
 set scrolloff=3             " Keep 3 lines above and below cursor
 set wrap                    " Word wrap
-" set incsearch               " Highlight while searching
-" set hlsearch                " Highlight all search matches
+set hlsearch                " Highlight all search matches
 set expandtab               " Insert tabs as spaces
 set tabstop=2               " Number of spaces a tab counts for
 set shiftwidth=2            " Number of spaces a tab counts for
-set conceallevel=2          " Hide things
+set nojoinspaces            " No double space when joining lines
 set noswapfile              " No swapfile
 "===============================================================================
 
@@ -31,10 +25,13 @@ let mapleader = "\<Space>"
 " Escape
 inoremap jk <Esc>
 
+" Clear highlighting.
+nnoremap <silent> <Esc> :nohlsearch<CR>:call clearmatches()<CR>
+
 " Localize directory
 nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:echo "Localized directory."<CR>
 
-" File opening: [open in window], [save], [save and exit], [exit]
+" File opening: [open in window], [save], [exit]
 nnoremap <Leader>o :edit<Space>
 nnoremap <Leader>s :write<CR>
 nnoremap <Leader>q :quit!<CR>
@@ -48,29 +45,32 @@ nnoremap <silent> <C-j> <C-w>j
 nnoremap <silent> <C-k> <C-w>k
 nnoremap <silent> <C-l> <C-w>l
 
+" Make arrows resize splits
+nnoremap <Left>  <C-w><
+nnoremap <Down>  <C-w>-
+nnoremap <Up>    <C-w>+
+nnoremap <Right> <C-w>>
+
 " Search and replace
 nnoremap <Leader>r :%s//g<Left><Left>
 vnoremap <Leader>r :s//g<Left><Left>
 
-" Make and quickfix stuff
+" Make.
 nnoremap <silent> <Leader>mk :make!<CR>
-nnoremap <Leader>cc :tabnew<CR>:copen<CR>
-nnoremap <Leader>cn :cnext<CR>
-nnoremap <Leader>cp :cprev<CR>
 "===============================================================================
 
 "===============================================================================
 """ TEXT FUNCTIONS:
 " Autocomplete
 function! TabToAutocomplete() abort
-  if col(".")>1 && strpart(getline("."), col(".") - 2, 3) =~ '^\w'
+  if col(".") > 1 && strpart(getline("."), col(".") - 2, 3) =~ '^\w'
     return "\<C-n>"
     " return "\<C-x>\<C-o>"
   else
     return "\<Tab>"
   endif
 endfunction
-inoremap <Tab> <C-r>=TabToAutocomplete()<CR>
+inoremap <expr> <Tab> TabToAutocomplete()
 
 " Autoclose braces
 function! Match_Close(open, close) abort
@@ -90,17 +90,17 @@ function! Match_Close(open, close) abort
       let i += 1
     endwhile
     if matches == 0
-      let value = "\<Right>"
+      let value = "\<C-g>U\<Right>"
     endif
   endif
   return value
 endfunction
-inoremap { {}<Left>
-inoremap ( ()<Left>
-inoremap [ []<Left>
-inoremap } <C-r>=Match_Close("{", "}")<CR>
-inoremap ) <C-r>=Match_Close("(", ")")<CR>
-inoremap ] <C-r>=Match_Close("[", "]")<CR>
+inoremap { {}<C-g>U<Left>
+inoremap ( ()<C-g>U<Left>
+inoremap [ []<C-g>U<Left>
+inoremap <expr> } Match_Close("{", "}")
+inoremap <expr> ) Match_Close("(", ")")
+inoremap <expr> ] Match_Close("[", "]")
 
 " Autoclose quotes
 function! Match_Quote(ch) abort
@@ -118,17 +118,17 @@ function! Match_Quote(ch) abort
   endwhile
   if (chcount % 2 == 0)
     if strpart(line, col(".") - 1, 1) == a:ch
-      let value = "\<Right>"
+      let value = "\<C-g>U\<Right>"
     else
-      let value = a:ch.a:ch."\<Left>"
+      let value = a:ch.a:ch."\<C-g>U\<Left>"
     endif
   else
     let value = a:ch
   endif
   return value
 endfunction
-inoremap " <C-r>=Match_Quote("\"")<CR>
-inoremap ' <C-r>=Match_Quote("\'")<CR>
+inoremap <expr> " Match_Quote("\"")
+inoremap <expr> ' Match_Quote("\'")
 
 " Autoremove paired braces and quotes
 function! Match_Remove() abort
@@ -140,7 +140,7 @@ function! Match_Remove() abort
   endif
   return "\<BS>"
 endfunction
-inoremap <BS> <C-r>=Match_Remove()<CR>
+inoremap <expr> <BS> Match_Remove()
 
 " Autoindent and open braces
 function! Brace_Opener() abort
@@ -150,7 +150,7 @@ function! Brace_Opener() abort
   endif
   return "\<CR>"
 endfunction
-inoremap <CR> <C-r>=Brace_Opener()<CR>
+inoremap <expr> <CR> Brace_Opener()
 
 " Autocommenting
 function! Autocomment() abort
@@ -185,69 +185,73 @@ endfunction
 nnoremap <silent> <Leader><BS> :call StripTrail()<CR>
 
 " Primitive surrounding capability
-function! Surround() abort
+function! Surround()
+  " Listen for updates to the command line.
+  augroup Cmdline
+    autocmd!
+    autocmd CmdlineChanged * call s:SurroundPrompt(getcmdline())
+  augroup END
+  " Mark the current location.
+  execute 'normal! m`'
+  " Get the selected object and surround character(s).
+  let l:cmd = input('surround ↯ ')[2:]
+  " Clear the autogroup.
+  augroup Cmdline
+    autocmd!
+  augroup END
+  " Only continue if we are in visual mode.
+  if mode() != 'v'
+    return
+  endif
+  " Pairs to surround text with.
   let l:pairs = {
-  \ "(" : "()",
-  \ "[" : "[]",
-  \ "{" : "{}",
-  \ "<" : "<>"
+  \ '(' : '()',
+  \ '[' : '[]',
+  \ '{' : '{}',
+  \ '<' : '<>'
   \ }
-  let l:obj = nr2char(getchar())
-  let l:char = nr2char(getchar())
-  let l:pair = has_key(l:pairs, l:char) ? l:pairs[l:char] : l:char . l:char
-  if index(["w", "W"], l:obj) >= 0
-    execute "normal! ci" . l:obj . l:pair . "\<Esc>P"
-  elseif index(["(", "[", "{"], l:obj) >= 0
-    execute "normal! ca" . l:obj . l:pair . "\<Esc>P"
-  endif
+  " Surround the text.
+  let l:txt = has_key(l:pairs, l:cmd) ? l:pairs[l:cmd] : l:cmd . l:cmd
+  execute 'normal! c' . l:txt . "\<Esc>P``"
 endfunction
-nnoremap <silent> ys :call Surround()<CR>
-
-" Enhanced in-line motion
-function! Sneak() abort
-  let l:matchable = nr2char(getchar())
-  let l:line = getline(".")
-  let l:lnum = line(".")
-  let l:cnum = 1
-  let l:mnum = 1
-  for l:ch in split(l:line, '\zs\ze')
-    if l:ch == l:matchable
-      call matchaddpos("Conceal",
-        \ [[l:lnum, l:cnum]],
-        \ 1,
-        \ -1,
-        \ {"conceal": l:mnum}
-        \ )
-      let l:mnum += 1
-    endif
-    let l:cnum += 1
-  endfor
-  let l:cc = &concealcursor
-  let &concealcursor = "n"
+function! s:SurroundPrompt(cmd)
+  " If we are currently in visual mode, toggle visual mode again to prepare to
+  " select more text.
+  if mode() == 'v'
+    execute 'normal! v'
+  endif
+  " Only select text if we have an appropriate query string.
+  if a:cmd =~ '[ia].*'
+    execute 'normal! v' . a:cmd[0:1] . 'o'
+  endif
+  " Update for changes.
   redraw
-  let l:mid = nr2char(getchar())
-  if l:mid =~ '\d' && l:mid < l:mnum
-    execute "normal! 0" . l:mid . "f" . l:matchable
-  endif
-  let &concealcursor = l:cc
-  call clearmatches()
 endfunction
-nnoremap <silent> <Leader>f :call Sneak()<CR>
+nnoremap <silent> gs :call Surround()<CR>
+
+" Highlight the current match when searching with n/N.
+function! CurrentSearch(ch)
+  call clearmatches()
+  call matchadd("IncSearch", '\%#' . @/)
+  return a:ch
+endfunction
+nnoremap <expr> <silent> n CurrentSearch("n")
+nnoremap <expr> <silent> N CurrentSearch("N")
 "===============================================================================
 
 "===============================================================================
 """ AESTHETICS:
 " Colorscheme
-colorscheme afterglow
+colorscheme iridescence
 
+" No visible vertical split separators.
+set fillchars=vert:\ ,diff:\ 
+
+" Trailing whitespace
 augroup au_display
   autocmd!
-  " Trailing whitespace
   autocmd InsertEnter * setlocal nolist
   autocmd InsertLeave * setlocal list
-  " Cursorline on active window
-  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  autocmd WinLeave * setlocal nocursorline
 augroup END
 
 " Buffer flags
@@ -281,9 +285,10 @@ function! Tabline() abort
     let buflist = tabpagebuflist(tabnr)
     let bufnr   = buflist[winnr - 1]
     let file    = fnamemodify(bufname(bufnr), ":t")
-    let tl .= (tabnr == tabpagenr()) ? "%#TabLineSel# " : "%#TabLine# "
-    let tl .= empty(file) ? "[blank]" : file
-    let tl .= " %*"
+    let tl .= " "
+    let tl .= (tabnr == tabpagenr()) ? "%#TabLineSel#" : "%#TabLine#"
+    let tl .= empty(file) ? "scratch" : file
+    let tl .= "%* "
   endfor
   let tl .= "%#TabLineFill#"
   return tl
@@ -292,13 +297,6 @@ set showtabline=2
 if exists("+showtabline")
   set tabline=%!Tabline()
 endif
-
-" Colorscheme tools
-nnoremap <silent> <Leader>S :echo
-      \"<".synIDattr(synID(line("."),col("."),1),"name").">".
-      \"<".synIDattr(synID(line("."),col("."),0), "name").">".
-      \"<".synIDattr(synIDtrans(synID(line("."),col("."),1)),"name").">"<CR>
-nnoremap <Leader>;; yy:@"<CR>
 "===============================================================================
 
 "===============================================================================
@@ -318,6 +316,7 @@ augroup Commenting
   autocmd filetype tex     let b:comment = "%"
   autocmd filetype python  let b:comment = "#"
   autocmd filetype r       let b:comment = "#"
+  autocmd filetype scala   let b:comment = "//"
   autocmd filetype vim     let b:comment = "\""
   let g:tex_flavor = "latex"
 augroup END
