@@ -91,14 +91,14 @@ function! Match_Close(open, close) abort
       let i += 1
     endwhile
     if matches == 0
-      let value = "\<Right>"
+      let value = "\<C-g>U\<Right>"
     endif
   endif
   return value
 endfunction
-inoremap { {}<Left>
-inoremap ( ()<Left>
-inoremap [ []<Left>
+inoremap { {}<C-g>U<Left>
+inoremap ( ()<C-g>U<Left>
+inoremap [ []<C-g>U<Left>
 inoremap <expr> } Match_Close("{", "}")
 inoremap <expr> ) Match_Close("(", ")")
 inoremap <expr> ] Match_Close("[", "]")
@@ -119,9 +119,9 @@ function! Match_Quote(ch) abort
   endwhile
   if (chcount % 2 == 0)
     if strpart(line, col(".") - 1, 1) == a:ch
-      let value = "\<Right>"
+      let value = "\<C-g>U\<Right>"
     else
-      let value = a:ch.a:ch."\<Left>"
+      let value = a:ch.a:ch."\<C-g>U\<Left>"
     endif
   else
     let value = a:ch
