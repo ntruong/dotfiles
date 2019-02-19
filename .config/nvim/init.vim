@@ -306,6 +306,15 @@ nnoremap <silent> <Leader>[] :MakeTags<CR><CR>:echo "Made tags."<CR>
 "===============================================================================
 
 "===============================================================================
+""" QUICKFIX:
+augroup Quickfix
+  autocmd!
+  autocmd QuickFixCmdPost [^l]* cwindow
+  autocmd QuickFixCmdPost l* lwindow
+augroup END
+"===============================================================================
+
+"===============================================================================
 """ FILETYPE SPECIFIC:
 augroup Commenting
   autocmd!
