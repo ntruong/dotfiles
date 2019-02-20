@@ -15,6 +15,7 @@ set tabstop=2               " Number of spaces a tab counts for
 set shiftwidth=2            " Number of spaces a tab counts for
 set nojoinspaces            " No double space when joining lines
 set noswapfile              " No swapfile
+let g:tex_flavor = "latex"  " Default tex flavor is LaTeX
 "===============================================================================
 
 "===============================================================================
@@ -316,21 +317,5 @@ augroup Quickfix
   autocmd!
   autocmd QuickFixCmdPost [^l]* cwindow
   autocmd QuickFixCmdPost l* lwindow
-augroup END
-"===============================================================================
-
-"===============================================================================
-""" FILETYPE SPECIFIC:
-augroup Commenting
-  autocmd!
-  autocmd filetype c,cpp   let b:comment = "//"
-  autocmd filetype haskell let b:comment = "--"
-  autocmd filetype java    let b:comment = "//"
-  autocmd filetype tex     let b:comment = "%"
-  autocmd filetype python  let b:comment = "#"
-  autocmd filetype r       let b:comment = "#"
-  autocmd filetype scala   let b:comment = "//"
-  autocmd filetype vim     let b:comment = "\""
-  let g:tex_flavor = "latex"
 augroup END
 "===============================================================================
