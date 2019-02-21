@@ -4,6 +4,24 @@
 
 "==================================================
 setlocal makeprg=latexmk\ -interaction=nonstopmode\ -pdf\ %<
+" Async make.
+function! Make()
+  call MakeStop()
+  let cmd  = "latexmk "
+  let cmd .= "-interaction=nonstopmode "
+  let cmd .= "-pvc "
+  let cmd .= "-pdf "
+  let cmd .= expand("%:t")
+  let b:latexmk_pid = jobstart(cmd)
+endfunction
+function! MakeStop()
+  if exists("b:latexmk_pid") && b:latexmk_pid > 0
+    call jobstop(b:latexmk_pid)
+    let b:latexmk_pid = -1
+  endif
+endfunction
+command! Make :call Make()
+command! MakeStop :call MakeStop()
 " Text display
 setlocal textwidth=80
 filetype indent off
