@@ -27,8 +27,10 @@ command! MakeStop :call MakeStop()
 setlocal textwidth=80
 filetype indent off
 " Text-objects.
+nnoremap <silent> ]] :call search('^\\begin', "sW")<CR>
 nnoremap <silent> [[ :call search('^\\begin', "sbW")<CR>
-nnoremap <silent> ]] :call search('^\\end', "sW")<CR>
+nnoremap <silent> ][ :call search('^\\end', "sW")<CR>
+nnoremap <silent> [] :call search('^\\end', "sbW")<CR>
 " Text functions
 inoremap <buffer> ;bf \textbf{}<Left>
 inoremap <buffer> ;it \textit{}<Left>
