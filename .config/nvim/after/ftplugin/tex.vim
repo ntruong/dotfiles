@@ -3,7 +3,8 @@
 "==================================================
 
 "==================================================
-setlocal makeprg=latexmk\ -interaction=nonstopmode\ -pdf\ %<
+let &l:makeprg="latexmk -interaction=nonstopmode -pdf %<" .
+             \ " && latexmk -c"
 " Async make.
 function! Make()
   call MakeStop()
