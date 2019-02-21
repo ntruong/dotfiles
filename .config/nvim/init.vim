@@ -20,39 +20,39 @@ let g:tex_flavor = "latex"  " Default tex flavor is LaTeX
 
 "===============================================================================
 """ KEYMAPS:
-" Leader
+" Leader.
 let mapleader = "\<Space>"
 
-" Escape
+" Escape.
 inoremap jk <Esc>
 
 " Clear highlighting.
 nnoremap <silent> <Esc> :nohlsearch<CR>:call clearmatches()<CR>
 
-" Localize directory
+" Localize directory.
 nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:echo "Localized directory."<CR>
 
-" File opening: [open in window], [save], [exit]
+" File opening: [open in window], [save], [exit].
 nnoremap <Leader>o :edit<Space>
 nnoremap <Leader>s :write<CR>
 nnoremap <Leader>q :quit!<CR>
 
-" Tabbing
+" Tabbing.
 nnoremap <Leader>t :tabedit<CR>:edit<Space>
 
-" Split window navigation: [left] [down] [up] [right]
+" Split window navigation: [left] [down] [up] [right].
 nnoremap <silent> <C-h> <C-w>h
 nnoremap <silent> <C-j> <C-w>j
 nnoremap <silent> <C-k> <C-w>k
 nnoremap <silent> <C-l> <C-w>l
 
-" Make arrows resize splits
+" Make arrows resize splits.
 nnoremap <Left>  <C-w><
 nnoremap <Down>  <C-w>-
 nnoremap <Up>    <C-w>+
 nnoremap <Right> <C-w>>
 
-" Search and replace
+" Search and replace.
 nnoremap <Leader>r :%s//g<Left><Left>
 vnoremap <Leader>r :s//g<Left><Left>
 
@@ -62,7 +62,7 @@ nnoremap <silent> <Leader>mk :make!<CR>
 
 "===============================================================================
 """ TEXT FUNCTIONS:
-" Autocomplete
+" Autocomplete.
 function! TabToAutocomplete() abort
   if col(".") > 1 && strpart(getline("."), col(".") - 2, 3) =~ '^\w'
     return "\<C-n>"
@@ -73,7 +73,7 @@ function! TabToAutocomplete() abort
 endfunction
 inoremap <expr> <Tab> TabToAutocomplete()
 
-" Autoclose braces
+" Autoclose braces.
 function! Match_Close(open, close) abort
   let l:str = getline(".")
   let l:value = a:close
@@ -103,7 +103,7 @@ inoremap <expr> } Match_Close("{", "}")
 inoremap <expr> ) Match_Close("(", ")")
 inoremap <expr> ] Match_Close("[", "]")
 
-" Autoclose quotes
+" Autoclose quotes.
 function! Match_Quote(ch) abort
   let line = getline(".")
   let value = ""
@@ -131,7 +131,7 @@ endfunction
 inoremap <expr> " Match_Quote("\"")
 inoremap <expr> ' Match_Quote("\'")
 
-" Autoremove paired braces and quotes
+" Autoremove paired braces and quotes.
 function! Match_Remove() abort
   let pair_dict = {"{": "}", "(": ")", "[": "]", "\"": "\"", "\'": "\'"}
   let fst = strpart(getline("."), col(".") - 2, 1)
@@ -143,7 +143,7 @@ function! Match_Remove() abort
 endfunction
 inoremap <expr> <BS> Match_Remove()
 
-" Autoindent and open braces
+" Autoindent and open braces.
 function! Brace_Opener() abort
   let fst = strpart(getline("."), col(".") - 2, 1)
   if (strpart(getline("."), col(".") - 2, 1) == "{") && (strpart(getline("."), col(".") - 1, 1) == "}")
@@ -153,7 +153,7 @@ function! Brace_Opener() abort
 endfunction
 inoremap <expr> <CR> Brace_Opener()
 
-" Commenting
+" Commenting.
 function! Comment() abort
   " Get filetype comments.
   let l:comments = split(&comments, ",")
@@ -179,7 +179,7 @@ function! Comment() abort
 endfunction
 nnoremap <silent> <C-_> :call Comment()<CR>
 
-" Strip trailing whitespace
+" Strip trailing whitespace.
 function! StripTrail() abort
   let search=@/
   let l = line(".")
@@ -190,7 +190,7 @@ function! StripTrail() abort
 endfunction
 nnoremap <silent> <Leader><BS> :call StripTrail()<CR>
 
-" Primitive surrounding capability
+" Primitive surrounding capability.
 function! Surround()
   " Listen for updates to the command line.
   augroup Cmdline
@@ -247,20 +247,20 @@ nnoremap <expr> <silent> N CurrentSearch("N")
 
 "===============================================================================
 """ AESTHETICS:
-" Colorscheme
+" Colorscheme.
 colorscheme iridescence
 
 " No visible vertical split separators.
 set fillchars=vert:\ ,diff:\ 
 
-" Trailing whitespace
+" Trailing whitespace.
 augroup au_display
   autocmd!
   autocmd InsertEnter * setlocal nolist
   autocmd InsertLeave * setlocal list
 augroup END
 
-" Buffer flags
+" Buffer flags.
 function! Modifiers() abort
   let l:flags = ""
   let l:flags .= (&modified ? " [+] " : "")  " Modified flag
@@ -269,7 +269,7 @@ function! Modifiers() abort
   return l:flags
 endfunction
 
-" Statusline
+" Statusline.
 set statusline=
 set statusline+=\ %y\                    " File type
 set statusline+=\ %.40f\                 " File path
@@ -281,7 +281,7 @@ set statusline+=[%2v]\                   " Virtual column number
 set statusline+=\ %{&fileformat}         " File format
 set statusline+=/%{&fileencoding?&fileencoding:&encoding}\  " File encoding
 
-" Tabline
+" Tabline.
 function! Tabline() abort
   let tl = ""
   for i in range(tabpagenr("$"))

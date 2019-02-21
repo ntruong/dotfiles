@@ -23,7 +23,7 @@ function! MakeStop()
 endfunction
 command! Make :call Make()
 command! MakeStop :call MakeStop()
-" Text display
+" Text display.
 setlocal textwidth=80
 filetype indent off
 " Text-objects.
@@ -31,18 +31,18 @@ nnoremap <silent> ]] :call search('^\\begin', "sW")<CR>
 nnoremap <silent> [[ :call search('^\\begin', "sbW")<CR>
 nnoremap <silent> ][ :call search('^\\end', "sW")<CR>
 nnoremap <silent> [] :call search('^\\end', "sbW")<CR>
-" Text functions
+" Text functions.
 inoremap <buffer> ;bf \textbf{}<Left>
 inoremap <buffer> ;it \textit{}<Left>
 inoremap <buffer> ;ul \underline{}<Left>
 inoremap <buffer> ;em \emph{}<Left>
 inoremap <buffer> /   \
 inoremap <buffer> \   /
-" Math stuff
+" Math stuff.
 inoremap <buffer> ;mm \[\]<Esc>T[i<CR><Esc>O
 inoremap <buffer> ;mb \mathbb{}<Esc>T{i
 inoremap <buffer> ;mc \mathcal{}<Esc>T{i
-" \begin{} ... \end{}
+" \begin{} ... \end{}.
 function! BeginEnd(type)
   let l:t = a:type
   if empty(a:type)
@@ -55,7 +55,7 @@ function! BeginEnd(type)
   delete
 endfunction
 inoremap <buffer> ;bg  <Esc>:call BeginEnd("")<CR>
-" Tabulated entries
+" Tabulated entries.
 function! Array(type)
   call inputsave()
   let rows = input('Rows: ')
