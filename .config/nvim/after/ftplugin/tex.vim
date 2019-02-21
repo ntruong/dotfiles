@@ -3,7 +3,7 @@
 "==================================================
 
 "==================================================
-setlocal makeprg=pdflatex\ -interaction\ nonstopmode\ %<
+setlocal makeprg=latexmk\ -interaction=nonstopmode\ -pdf\ %<
 " Text display
 setlocal textwidth=80
 filetype indent off
