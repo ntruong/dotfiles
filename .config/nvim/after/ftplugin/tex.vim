@@ -13,6 +13,7 @@ inoremap <buffer> ;it \textit{}<Left>
 inoremap <buffer> ;ul \underline{}<Left>
 inoremap <buffer> ;em \emph{}<Left>
 inoremap <buffer> /   \
+inoremap <buffer> \   /
 " Math stuff
 inoremap <buffer> ;mm \[\]<Esc>T[i<CR><Esc>O
 inoremap <buffer> ;mb \mathbb{}<Esc>T{i
