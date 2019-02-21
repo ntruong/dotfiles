@@ -26,6 +26,9 @@ command! MakeStop :call MakeStop()
 " Text display
 setlocal textwidth=80
 filetype indent off
+" Text-objects.
+nnoremap <silent> [[ :call search('^\\begin', "sbW")<CR>
+nnoremap <silent> ]] :call search('^\\end', "sW")<CR>
 " Text functions
 inoremap <buffer> ;bf \textbf{}<Left>
 inoremap <buffer> ;it \textit{}<Left>
