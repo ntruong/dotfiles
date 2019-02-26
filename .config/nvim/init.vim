@@ -15,6 +15,7 @@ set tabstop=2               " Number of spaces a tab counts for
 set shiftwidth=2            " Number of spaces a tab counts for
 set nojoinspaces            " No double space when joining lines
 set noswapfile              " No swapfile
+set wildignorecase          " Ignore case in wildmenu
 let g:tex_flavor = "latex"  " Default tex flavor is LaTeX
 "===============================================================================
 
