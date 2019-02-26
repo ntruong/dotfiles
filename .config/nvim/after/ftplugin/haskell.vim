@@ -11,4 +11,5 @@ setlocal errorformat+=%E%f:%l:%c:\ error:
 setlocal errorformat+=%W%f:%l:%c:\ warning:
 setlocal errorformat+=%Z\ %\\+%m
 setlocal errorformat+=%-G%.%#
+inoremap ' '
 "==================================================

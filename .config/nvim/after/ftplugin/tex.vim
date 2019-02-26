@@ -32,6 +32,7 @@ nnoremap <silent> <buffer> [[ :call search('^\\begin', "sbW")<CR>
 nnoremap <silent> <buffer> ][ :call search('^\\end', "sW")<CR>
 nnoremap <silent> <buffer> [] :call search('^\\end', "sbW")<CR>
 " Text functions.
+inoremap <buffer> ' '
 inoremap <buffer> ;bf \textbf{}<Left>
 inoremap <buffer> ;it \textit{}<Left>
 inoremap <buffer> ;ul \underline{}<Left>
