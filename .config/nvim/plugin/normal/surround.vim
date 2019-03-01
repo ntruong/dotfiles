@@ -1,6 +1,13 @@
 " Name: Surround
 " Author: Nicholas Truong
 
+function! s:VisualOff() abort
+  " If we are currently in visual mode, toggle it off.
+  if mode() == 'v'
+    execute 'normal! v'
+  endif
+endfunction
+
 function! s:Surround() abort
   " Listen for updates to the command line.
   augroup Cmdline
@@ -15,8 +22,10 @@ function! s:Surround() abort
   augroup Cmdline
     autocmd!
   augroup END
-  " Only continue if we are in visual mode.
-  if mode() != 'v'
+  " Quit if we are not in visual mode or if the user canceled.
+  if mode() != 'v' || empty(l:cmd)
+    call s:VisualOff()
+    execute 'normal! ``'
     return
   endif
   " Pairs to surround text with.
@@ -33,9 +42,7 @@ endfunction
 function! s:SurroundPrompt(cmd) abort
   " If we are currently in visual mode, toggle visual mode again to prepare to
   " select more text.
-  if mode() == 'v'
-    execute 'normal! v'
-  endif
+  call s:VisualOff()
   " Only select text if we have an appropriate query string.
   if a:cmd =~ '[ia].*'
     execute 'normal! v' . a:cmd[0:1] . 'o'
