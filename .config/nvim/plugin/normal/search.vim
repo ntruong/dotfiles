@@ -2,9 +2,9 @@
 " Author: Nicholas Truong
 
 " Highlight the focused search term differently.
-function! s:Search(ch)
+function! s:Search(ch) abort
   call clearmatches()
-  call matchadd("IncSearch", '\%#' . @/)
+  call matchadd("IncSearch", '\%#\(' . @/ . '\)')
   return a:ch
 endfunction
 nnoremap <expr> <Plug>searchn <SID>Search("n")
