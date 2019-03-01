@@ -1,8 +1,6 @@
 " Name: LaTeX configuration for Vim
 " Author: Nicholas Truong
-"==================================================
 
-"==================================================
 " Compiler.
 compiler latexmk
 " Async make.
@@ -92,4 +90,3 @@ function! Matrix()
   call Array('array')
 endfunction
 inoremap <buffer> ;mat <Esc>:call Matrix()<CR>
-"==================================================

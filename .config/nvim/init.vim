@@ -1,9 +1,7 @@
 " Name: Vim Configuration
 " Author: Nicholas Truong
-"===============================================================================
 
-"===============================================================================
-""" BASIC OPTION SETTING:
+""" Option settings.
 colorscheme iridescence
 set encoding=utf-8            " Use UTF-8
 set previewheight=20          " Preview window height
@@ -19,10 +17,8 @@ set noswapfile                " No swapfile
 set wildignorecase            " Ignore case in wildmenu
 set fillchars=vert:\ ,diff:\  " Make split separators invisible
 let g:tex_flavor = "latex"    " Default tex flavor is LaTeX
-"===============================================================================
 
-"===============================================================================
-""" KEYMAPS:
+""" Keymaps.
 " Leader.
 let mapleader = "\<Space>"
 
@@ -95,4 +91,3 @@ imap ' <Plug>Match'
 
 " Autoremove paired braces and quotes.
 imap <BS> <Plug>RemoveMatch
-"===============================================================================
