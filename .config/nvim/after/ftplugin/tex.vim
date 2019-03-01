@@ -3,8 +3,8 @@
 "==================================================
 
 "==================================================
-let &l:makeprg="latexmk -interaction=nonstopmode -pdf %<" .
-             \ " && latexmk -c"
+" Compiler.
+compiler latexmk
 " Async make.
 function! Make()
   call MakeStop()
