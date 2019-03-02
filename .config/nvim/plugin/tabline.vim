@@ -3,21 +3,17 @@
 
 function! Tabline() abort
   let tl = ""
-  for i in range(tabpagenr("$"))
-    let tabnr   = i + 1
+  for tabnr in range(1, tabpagenr("$"))
     let winnr   = tabpagewinnr(tabnr)
     let buflist = tabpagebuflist(tabnr)
     let bufnr   = buflist[winnr - 1]
     let file    = fnamemodify(bufname(bufnr), ":t")
-    let tl .= " "
-    let tl .= (tabnr == tabpagenr()) ? "%#TabLineSel#" : "%#TabLine#"
-    let tl .= empty(file) ? "scratch" : file
-    let tl .= "%* "
+    let file    = empty(file) ? "[No Name]" : file
+    if tabnr == tabpagenr()
+      let file = "%#TabLineSel#" . file . "%#TabLine#"
+    endif
+    let tl .= " " . file . " "
   endfor
-  let tl .= "%#TabLineFill#"
-  return tl
+  return "%#TabLine#" . trim(tl) . "%#TabLineFill#"
 endfunction
-set showtabline=2
-if exists("+showtabline")
-  set tabline=%!Tabline()
-endif
+set tabline=%!Tabline()
