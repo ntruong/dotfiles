@@ -6,7 +6,7 @@ function! s:Environment(env) abort
   let l:env = a:env
   if empty(a:env)
     call inputsave()
-    let l:env = input('Begin: ')
+    let l:env = input('env: ')
     call inputrestore()
   endif
   " Only create the environment if the user supported an environment.
