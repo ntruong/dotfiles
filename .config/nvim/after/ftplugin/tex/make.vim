@@ -13,10 +13,13 @@ function! s:Make() abort
 endfunction
 " Cancel the current async latexmk job.
 function! s:MakeStop() abort
-  if exists("b:latexmk_pid") && b:latexmk_pid > 0
+  if b:latexmk_pid > 0
     call jobstop(b:latexmk_pid)
-    let b:latexmk_pid = -1
   endif
+  let b:latexmk_pid = -1
 endfunction
+let b:latexmk_pid = -1
 command! -buffer Make call s:Make()
 command! -buffer MakeStop call s:MakeStop()
+" Put a notice for make in the statusline.
+setlocal statusline+=\ [%{b:latexmk_pid\ >\ 0\ ?\ \"↯\"\ :\ \"\ \"}]
