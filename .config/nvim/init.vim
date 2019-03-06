@@ -75,7 +75,8 @@ nmap <silent> <C-_> <Plug>Comment
 nmap <silent> <Leader><BS> <Plug>StripTrail
 
 " Tab triggers text completion.
-imap <Tab> <Plug>Completion
+imap <Tab>   <Plug>Completion
+imap <S-Tab> <Plug>PrevCompletion
 
 " Auto open/close braces.
 inoremap { {}<C-g>U<Left>
