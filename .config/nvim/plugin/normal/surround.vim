@@ -6,9 +6,7 @@ let s:pos = [0, 0, 0, 0]
 
 " Regex prefixes to a surround command we recognize.
 let s:rtextobj = '^[ia].*'
-
-" Text to surround with.
-let s:stext = ["", ""]
+let s:rregex   = '^r/.\{-}\\\@1<!/'
 
 " Pairs of characters we recognize.
 let s:pairs = {
@@ -17,6 +15,16 @@ let s:pairs = {
   \ '{' : ['{', '}'],
   \ '<' : ['<', '>']
   \ }
+
+" Text to surround with.
+let s:stext = ["", ""]
+function! s:MakeSText(txt) abort
+  if has_key(s:pairs, a:txt)
+    let s:stext = s:pairs[a:txt]
+  else
+    let s:stext = [a:txt, a:txt]
+  endif
+endfunction
 
 " Reset the user to the starting state.
 function! s:Reset() abort
@@ -42,7 +50,7 @@ function! s:Surround() abort
     autocmd!
   augroup END
   " Quit if we are not in visual mode or if the command was invalid.
-  if mode() != 'v' || l:cmd !~ s:rtextobj
+  if mode() != 'v' || (l:cmd !~ s:rtextobj && l:cmd !~ s:rregex)
     call s:Reset()
     return
   endif
@@ -61,8 +69,28 @@ function! s:SurroundPrompt(cmd) abort
   " Match text objects.
   if a:cmd =~ s:rtextobj
     execute 'normal! v' . a:cmd[0:1] . 'o'
-    let l:txt = a:cmd[2:]
-    let s:stext = has_key(s:pairs, l:txt) ? s:pairs[l:txt] : [l:txt, l:txt]
+    call s:MakeSText(a:cmd[2:])
+  " Match regex strings.
+  elseif a:cmd =~ '^r/.\{-}\\\@1<!/'
+    " Split around the first unescaped forward slash.
+    let l:args = split(a:cmd[2:], '\\\@1<!/', 1)
+    execute 'normal! v'
+    " Search backwards if we're given a string.
+    if !empty(l:args[0])
+      call search(l:args[0], "bW")
+    endif
+    execute 'normal! o'
+    " Search forwards if we're given a string.
+    if !empty(l:args[1])
+      call search(l:args[1], "eW")
+    endif
+    " Fill the surrounding text.
+    if len(l:args) == 3
+      call s:MakeSText(l:args[2])
+    elseif len(l:args) > 3
+      let s:stext[0] = l:args[2]
+      let s:stext[1] = l:args[3]
+    endif
   endif
   " Update for changes.
   redraw
