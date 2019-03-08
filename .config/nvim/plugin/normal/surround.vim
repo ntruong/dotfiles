@@ -1,6 +1,9 @@
 " Name: Surround
 " Author: Nicholas Truong
 
+" Save the position of the user.
+let s:pos = [0, 0, 0, 0]
+
 " Pairs of characters we recognize.
 let s:pairs = {
   \ '(' : '()',
@@ -9,21 +12,22 @@ let s:pairs = {
   \ '<' : '<>'
   \ }
 
-" If we are currently in visual mode, toggle it off.
-function! s:VisualOff() abort
+" Reset the user to the starting state.
+function! s:Reset() abort
   if mode() == 'v'
     execute 'normal! v'
   endif
+  call cursor(s:pos[1:])
 endfunction
 
 function! s:Surround() abort
+  " Save the position of the user.
+  let s:pos = getpos(".")
   " Listen for updates to the command line.
   augroup Cmdline
     autocmd!
     autocmd CmdlineChanged * call s:SurroundPrompt(getcmdline())
   augroup END
-  " Mark the current location.
-  execute 'normal! m`'
   " Get the selected object and surround character(s).
   let l:cmd = input('surround ↯ ')[2:]
   " Clear the autogroup.
@@ -32,23 +36,23 @@ function! s:Surround() abort
   augroup END
   " Quit if we are not in visual mode or if the user canceled.
   if mode() != 'v' || empty(l:cmd)
-    call s:VisualOff()
-    execute 'normal! ``'
+    call s:Reset()
     return
   endif
   " Save the unnamed register.
   let l:reg = @"
   " Surround the text.
   let l:txt = has_key(s:pairs, l:cmd) ? s:pairs[l:cmd] : l:cmd . l:cmd
-  execute 'normal! c' . l:txt . "\<Esc>P``"
+  execute 'normal! c' . l:txt . "\<Esc>P"
   " Restore the unnamed register.
   let @" = l:reg
+  " Restore the position.
+  call s:Reset()
 endfunction
 function! s:SurroundPrompt(cmd) abort
-  " If we are currently in visual mode, toggle visual mode again to prepare to
-  " select more text.
-  call s:VisualOff()
-  " Only select text if we have an appropriate query string.
+  " Reset the position.
+  call s:Reset()
+  " Match text objects.
   if a:cmd =~ '^[ia].*'
     execute 'normal! v' . a:cmd[0:1] . 'o'
   endif
