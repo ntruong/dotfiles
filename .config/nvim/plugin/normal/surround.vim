@@ -1,8 +1,16 @@
 " Name: Surround
 " Author: Nicholas Truong
 
+" Pairs of characters we recognize.
+let s:pairs = {
+  \ '(' : '()',
+  \ '[' : '[]',
+  \ '{' : '{}',
+  \ '<' : '<>'
+  \ }
+
+" If we are currently in visual mode, toggle it off.
 function! s:VisualOff() abort
-  " If we are currently in visual mode, toggle it off.
   if mode() == 'v'
     execute 'normal! v'
   endif
@@ -28,16 +36,13 @@ function! s:Surround() abort
     execute 'normal! ``'
     return
   endif
-  " Pairs to surround text with.
-  let l:pairs = {
-  \ '(' : '()',
-  \ '[' : '[]',
-  \ '{' : '{}',
-  \ '<' : '<>'
-  \ }
+  " Save the unnamed register.
+  let l:reg = @"
   " Surround the text.
-  let l:txt = has_key(l:pairs, l:cmd) ? l:pairs[l:cmd] : l:cmd . l:cmd
+  let l:txt = has_key(s:pairs, l:cmd) ? s:pairs[l:cmd] : l:cmd . l:cmd
   execute 'normal! c' . l:txt . "\<Esc>P``"
+  " Restore the unnamed register.
+  let @" = l:reg
 endfunction
 function! s:SurroundPrompt(cmd) abort
   " If we are currently in visual mode, toggle visual mode again to prepare to
