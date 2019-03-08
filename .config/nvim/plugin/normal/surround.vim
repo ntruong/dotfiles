@@ -57,7 +57,7 @@ function! s:Surround() abort
   " Save the unnamed register.
   let l:reg = @"
   " Surround the text.
-  execute 'normal! c' . s:stext[0] . "\<C-o>P" . s:stext[1] . "\<Esc>"
+  execute 'normal! c' . s:stext[0] . "\<C-\>\<C-o>P" . s:stext[1] . "\<Esc>"
   " Restore the unnamed register.
   let @" = l:reg
   " Restore the position.
