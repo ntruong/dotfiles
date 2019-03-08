@@ -49,7 +49,7 @@ function! s:SurroundPrompt(cmd) abort
   " select more text.
   call s:VisualOff()
   " Only select text if we have an appropriate query string.
-  if a:cmd =~ '[ia].*'
+  if a:cmd =~ '^[ia].*'
     execute 'normal! v' . a:cmd[0:1] . 'o'
   endif
   " Update for changes.
