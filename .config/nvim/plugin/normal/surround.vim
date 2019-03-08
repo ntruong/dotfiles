@@ -5,8 +5,8 @@
 let s:pos = [0, 0, 0, 0]
 
 " Regex prefixes to a surround command we recognize.
-let s:rtextobj = '^[ia].*'
-let s:rregex   = '^r/.\{-}\\\@1<!/'
+let s:rtextobj = '^[ia]'
+let s:rregex   = '^r/'
 
 " Pairs of characters we recognize.
 let s:pairs = {
@@ -71,17 +71,17 @@ function! s:SurroundPrompt(cmd) abort
     execute 'normal! v' . a:cmd[0:1] . 'o'
     call s:MakeSText(a:cmd[2:])
   " Match regex strings.
-  elseif a:cmd =~ '^r/.\{-}\\\@1<!/'
+  elseif a:cmd =~ s:rregex
     " Split around the first unescaped forward slash.
     let l:args = split(a:cmd[2:], '\\\@1<!/', 1)
     execute 'normal! v'
     " Search backwards if we're given a string.
-    if !empty(l:args[0])
+    if len(l:args) >= 1 && !empty(l:args[0])
       call search(l:args[0], "bW")
     endif
     execute 'normal! o'
     " Search forwards if we're given a string.
-    if !empty(l:args[1])
+    if len(l:args) >= 2 && !empty(l:args[1])
       call search(l:args[1], "eW")
     endif
     " Fill the surrounding text.
