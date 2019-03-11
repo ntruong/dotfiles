@@ -24,3 +24,9 @@ inoremap <buffer> ;mb \mathbb{}<C-g>U<Left>
 inoremap <buffer> ;mc \mathcal{}<C-g>U<Left>
 " Environments.
 imap <buffer> ;bg <Plug>Environment
+
+" Automatically run compiler on write.
+augroup Tex
+  autocmd!
+  autocmd BufWritePost <buffer> Make
+augroup END

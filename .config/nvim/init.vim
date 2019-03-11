@@ -59,7 +59,7 @@ nnoremap <Leader>r :%s//g<Left><Left>
 vnoremap <Leader>r :s//g<Left><Left>
 
 " Make.
-nnoremap <silent> <Leader>mk :make!<CR>
+nnoremap <silent> <Leader>mk :Make<CR>
 
 " Primitive surrounding capability.
 nmap <silent> gs <Plug>Surround
