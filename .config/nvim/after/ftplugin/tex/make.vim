@@ -21,5 +21,6 @@ endfunction
 let b:latexmk_pid = -1
 command! -buffer Make call s:Make()
 command! -buffer MakeStop call s:MakeStop()
-" Put a notice for make in the statusline.
+" Put a notice for make in the statusline. Remove it if it already exists.
+setlocal statusline-=\ [%{b:latexmk_pid\ >\ 0\ ?\ \"↯\"\ :\ \"\ \"}]
 setlocal statusline+=\ [%{b:latexmk_pid\ >\ 0\ ?\ \"↯\"\ :\ \"\ \"}]
