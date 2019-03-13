@@ -28,5 +28,5 @@ imap <buffer> ;bg <Plug>Environment
 " Automatically run compiler on write.
 augroup Tex
   autocmd!
-  autocmd BufWritePost <buffer> Make
+  autocmd BufWritePost *.tex Make
 augroup END

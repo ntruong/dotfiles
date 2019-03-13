@@ -38,4 +38,4 @@ function! s:Make() abort
   endif
 endfunction
 
-command! -buffer Make call s:Make()
+command! Make call s:Make()
