@@ -33,7 +33,7 @@ endfunction
 " Reset the user to the starting state.
 function! s:Reset() abort
   if mode() == 'v'
-    execute 'normal! v'
+    normal! v
   endif
   call cursor(s:pos[1:])
   let s:stext = ["", ""]
@@ -78,12 +78,12 @@ function! s:Prompt(cmd) abort
   elseif a:cmd =~ s:rregex
     " Split around the first unescaped forward slash.
     let l:args = split(a:cmd[2:], '\\\@1<!/', 1)
-    execute 'normal! v'
+    normal! v
     " Search backwards if we're given a string.
     if len(l:args) >= 1 && !empty(l:args[0])
       call search(l:args[0], "bW")
     endif
-    execute 'normal! o'
+    normal! o
     " Search forwards if we're given a string.
     if len(l:args) >= 2 && !empty(l:args[1])
       call search(l:args[1], "eW")
@@ -106,26 +106,26 @@ endfunction
 nnoremap <Plug>Surround :call <SID>Do(function("<SID>Surround"))<CR>
 
 function! s:DeletePrompt() abort
-  execute 'normal! d'
+  normal! d
   call search(s:stext[0], "bW")
-  execute 'normal! P'
+  normal! P
   call search(s:stext[0], "W")
-  execute 'normal! v'
+  normal! v
   call search(s:stext[1], "eW")
-  execute 'normal! "_d'
+  normal! "_d
 endfunction
 nnoremap ds :call <SID>Do(function("<SID>DeletePrompt"))<CR>
 
 function! s:DeleteChars(x, y) abort
   call search(a:y, "W")
-  execute 'normal! v'
+  normal! v
   call search(a:y, "cW")
-  execute 'normal! d'
+  normal! d
   call s:Reset()
   call search(a:x, "bW")
-  execute 'normal! v'
+  normal! v
   call search(a:x, "cW")
-  execute 'normal! d'
+  normal! d
 endfunction
 nnoremap <silent> ds{ :call <SID>DeleteChars("{", "}")<CR>
 nnoremap <silent> ds( :call <SID>DeleteChars("(", ")")<CR>
