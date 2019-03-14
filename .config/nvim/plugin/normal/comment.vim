@@ -17,7 +17,7 @@ function! s:Comment() abort
   if l:begin == l:comment
     let l:c -= strlen(l:comment) + 1
     let l:c = (l:c > 0) ? l:c : 0
-    normal! _dW
+    normal! _"_dW
   else
     let l:c += strlen(l:comment) + 1
     execute "normal! I" . l:comment . " "
