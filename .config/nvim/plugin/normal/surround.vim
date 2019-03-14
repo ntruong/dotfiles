@@ -104,3 +104,29 @@ function! s:Surround() abort
   execute 'normal! c' . s:stext[0] . "\<C-\>\<C-o>P" . s:stext[1] . "\<Esc>"
 endfunction
 nnoremap <Plug>Surround :call <SID>Do(function("<SID>Surround"))<CR>
+
+function! s:DeletePrompt() abort
+  execute 'normal! d'
+  call search(s:stext[0], "bW")
+  execute 'normal! P'
+  call search(s:stext[0], "W")
+  execute 'normal! v'
+  call search(s:stext[1], "eW")
+  execute 'normal! "_d'
+endfunction
+nnoremap ds :call <SID>Do(function("<SID>DeletePrompt"))<CR>
+
+function! s:DeleteChars(x, y) abort
+  call search(a:y, "W")
+  execute 'normal! v'
+  call search(a:y, "cW")
+  execute 'normal! d'
+  call s:Reset()
+  call search(a:x, "bW")
+  execute 'normal! v'
+  call search(a:x, "cW")
+  execute 'normal! d'
+endfunction
+nnoremap <silent> ds{ :call <SID>DeleteChars("{", "}")<CR>
+nnoremap <silent> ds( :call <SID>DeleteChars("(", ")")<CR>
+nnoremap <silent> ds[ :call <SID>DeleteChars("[", "]")<CR>
