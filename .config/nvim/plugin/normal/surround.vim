@@ -39,13 +39,13 @@ function! s:Reset() abort
   let s:stext = ["", ""]
 endfunction
 
-function! s:Surround() abort
+function! s:Do(fn) abort
   " Save the position of the user.
   let s:pos = getpos(".")
   " Listen for updates to the command line.
   augroup Cmdline
     autocmd!
-    autocmd CmdlineChanged * call s:SurroundPrompt(getcmdline())
+    autocmd CmdlineChanged * call s:Prompt(getcmdline())
   augroup END
   " Get the selected object and surround character(s).
   let l:cmd = input('surround ↯ ')
@@ -60,14 +60,14 @@ function! s:Surround() abort
   endif
   " Save the unnamed register.
   let l:reg = @"
-  " Surround the text.
-  execute 'normal! c' . s:stext[0] . "\<C-\>\<C-o>P" . s:stext[1] . "\<Esc>"
+  " Act on the text.
+  call a:fn()
   " Restore the unnamed register.
   let @" = l:reg
   " Restore the position.
   call s:Reset()
 endfunction
-function! s:SurroundPrompt(cmd) abort
+function! s:Prompt(cmd) abort
   " Reset the position.
   call s:Reset()
   " Match text objects.
@@ -99,4 +99,8 @@ function! s:SurroundPrompt(cmd) abort
   " Update for changes.
   redraw
 endfunction
-nnoremap <Plug>Surround :call <SID>Surround()<CR>
+
+function! s:Surround() abort
+  execute 'normal! c' . s:stext[0] . "\<C-\>\<C-o>P" . s:stext[1] . "\<Esc>"
+endfunction
+nnoremap <Plug>Surround :call <SID>Do(function("<SID>Surround"))<CR>
