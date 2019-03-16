@@ -17,8 +17,6 @@ set noswapfile                " No swapfile
 set wildignorecase            " Ignore case in wildmenu
 set showtabline=2             " Tabline always visible
 set fillchars=vert:\ ,diff:\  " Make split separators invisible
-set splitbelow                " Split below
-set splitright                " Split right
 let g:tex_flavor = "latex"    " Default tex flavor is LaTeX
 
 """ Keymaps.
