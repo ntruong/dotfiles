@@ -32,11 +32,6 @@ nnoremap <silent> <Esc> :nohlsearch<CR>:call clearmatches()<CR>
 " Localize directory.
 nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:echo "Localized directory."<CR>
 
-" File opening: [open in window], [save], [exit].
-nnoremap <Leader>o :edit<Space>
-nnoremap <Leader>s :write<CR>
-nnoremap <Leader>q :quit!<CR>
-
 " Tabbing.
 nnoremap <Leader>t :tabedit<CR>:edit<Space>
 
