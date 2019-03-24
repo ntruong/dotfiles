@@ -53,7 +53,7 @@ chunkc set global_desktop_offset_top     80
 chunkc set global_desktop_offset_bottom  80
 chunkc set global_desktop_offset_left    80
 chunkc set global_desktop_offset_right   80
-chunkc set global_desktop_offset_gap     80
+chunkc set global_desktop_offset_gap     20
 
 #
 # NOTE: syntax for desktop-specific settings
