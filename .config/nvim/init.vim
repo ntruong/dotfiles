@@ -3,8 +3,8 @@
 
 """ Option settings.
 colorscheme iridescence
+set hidden                    " Hide buffers with changes
 set encoding=utf-8            " Use UTF-8
-set previewheight=20          " Preview window height
 set textwidth=80              " Keep columns legible
 set scrolloff=3               " Keep 3 lines above and below cursor
 set wrap                      " Word wrap
@@ -32,6 +32,9 @@ nnoremap <silent> <Esc> :nohlsearch<CR>:call clearmatches()<CR>
 
 " Localize directory.
 nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:echo "Localized directory."<CR>
+
+" Buffer switching.
+nnoremap <Leader>b :ls<CR>:buffer
 
 " Tabbing.
 nnoremap <Leader>t :tabedit<CR>:edit<Space>
