@@ -6,7 +6,13 @@ let s:makeprg_pid = -1
 
 " on_stdout callback.
 function! s:OnStdout(channel, data, stream) abort
-  cgetexpr a:data
+  let what = {
+    \"efm":   &errorformat,
+    \"lines": a:data,
+    \"title": &makeprg,
+    \}
+  call setqflist([], " ", what)
+  cwindow
 endfunction
 
 " on_exit callback.
