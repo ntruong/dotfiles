@@ -4,30 +4,36 @@
 " Track the pid of the current job.
 let s:makeprg_pid = -1
 
-" on_stdout callback.
-function! s:OnStdout(channel, data, stream) abort
+" on_stdout callback; we store file, makeprg, and errorformat so that we have
+" the correct values even if the current buffer changes before this is called.
+function! s:OnStdout(file, mp, efm, channel, data, stream) abort
   let what = {
-    \"efm":   &errorformat,
-    \"lines": a:data,
-    \"title": &makeprg,
-    \}
-  call setqflist([], " ", what)
-  cwindow
+    \ 'efm':   a:efm,
+    \ 'lines': a:data,
+    \ 'nr'   : '$',
+    \ 'title': a:mp,
+    \ }
+  call setqflist([], ' ', what)
+  doautocmd <nomodeline> QuickFixCmdPost a:file
+  " cwindow
 endfunction
 
-" on_exit callback.
-function! s:OnExit(job, exitcode, event) abort
+" on_exit callback; we store makeprg so that we have the correct value even if
+" the current buffer changes before this is called.
+function! s:OnExit(mp, job, exitcode, event) abort
   let s:makeprg_pid = -1
   set statusline-=\ [↯]
-  echom &makeprg . " finished with exit code " . a:exitcode
+  echom a:mp . ' finished with exit code ' . a:exitcode
 endfunction
 
 " Job control options.
-let s:opts = {
-  \ 'stdout_buffered' : v:true,
-  \ 'on_stdout' : function('s:OnStdout'),
-  \ 'on_exit'   : function('s:OnExit')
-  \ }
+function! s:Opts() abort
+  return {
+    \ 'stdout_buffered' : v:true,
+    \ 'on_stdout' : function('s:OnStdout', [bufname(''), &mp, &efm]),
+    \ 'on_exit' : function('s:OnExit', [&mp])
+    \ }
+endfunction
 
 " Asynchronously call the given &makeprg.
 function! s:Make() abort
@@ -38,7 +44,7 @@ function! s:Make() abort
   if s:makeprg_pid > 0
     call jobstop(s:makeprg_pid)
   endif
-  let s:makeprg_pid = jobstart(cmd, s:opts)
+  let s:makeprg_pid = jobstart(cmd, s:Opts())
   if s:makeprg_pid > 0
     set statusline+=\ [↯]
   endif
