@@ -7,7 +7,6 @@ set hidden                    " Hide buffers with changes
 set encoding=utf-8            " Use UTF-8
 set textwidth=80              " Keep columns legible
 set scrolloff=3               " Keep 3 lines above and below cursor
-set wrap                      " Word wrap
 set inccommand=nosplit        " Incremental commands
 set expandtab                 " Insert tabs as spaces
 set tabstop=2                 " Number of spaces a tab counts for
