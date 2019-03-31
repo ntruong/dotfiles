@@ -13,7 +13,7 @@ colors_enabled = "yes"
 header_visibility = "no"
 
 # Statusbar
-statusbar_color = 1
+statusbar_color = 7
 
 # Columns
 titles_visibility        = "no"
