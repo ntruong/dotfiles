@@ -51,8 +51,8 @@ nnoremap <Up>    <C-w>+
 nnoremap <Right> <C-w>>
 
 " Search and replace.
-nnoremap <Leader>r :%s//g<Left><Left>
-vnoremap <Leader>r :s//g<Left><Left>
+nnoremap S :%s//g<Left><Left>
+vnoremap S :s//g<Left><Left>
 
 " Make.
 nnoremap <silent> <Leader>mk :Make<CR>
