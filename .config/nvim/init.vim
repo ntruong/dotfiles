@@ -33,7 +33,7 @@ nnoremap <silent> <Esc> :nohlsearch<CR>:call clearmatches()<CR>
 nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:echo "Localized directory."<CR>
 
 " Buffer switching.
-nnoremap <Leader>b :ls<CR>:buffer
+nnoremap gb :ls<CR>:buffer
 
 " Tabbing.
 nnoremap <Leader>t :tabedit<CR>:edit<Space>
