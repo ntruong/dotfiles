@@ -31,10 +31,11 @@ function! s:surround(type) abort
     " Save the unnamed register
     let l:reg = @"
     " Surround text
-    execute 'normal! c' . l:delims[0] . "\<C-\>\<C-o>P" . l:delims[1] . "\<Esc>"
+    execute 'normal! c' . l:delims[0] . "\<C-\>\<C-o>P" . l:delims[1]
     " Restore the unnamed register
     let @" = l:reg
   endif
+  execute "normal! \<Esc>"
   return
 endfunction
 
