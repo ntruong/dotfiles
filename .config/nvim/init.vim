@@ -68,7 +68,7 @@ nmap <silent> N <Plug>searchN
 nmap <silent> <C-_> <Plug>Comment
 
 " Strip trailing whitespace.
-nmap <silent> <Leader><BS> <Plug>StripTrail
+nmap <silent> g<BS> <Plug>StripTrail
 
 " Tab triggers text completion.
 imap <Tab>   <Plug>Completion
