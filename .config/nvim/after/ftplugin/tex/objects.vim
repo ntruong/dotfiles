@@ -5,7 +5,6 @@
 " paragraphs by newlines, \begin{...}, \end{...}, \label{...}, \\, etc.
 let s:delimiters = '^(\s*$|\\begin|\\end|\\label|\\\\$)'
 function! s:Paragraph() abort
-  echom "s:Paragraph"
   " Save the search register
   let l:search = @/
   " Search backwards for a paragraph delimiter, then go to the line below
