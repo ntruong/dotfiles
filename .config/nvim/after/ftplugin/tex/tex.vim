@@ -3,8 +3,6 @@
 
 " Compiler.
 compiler latexmk
-" Text display.
-setlocal textwidth=80
 filetype indent off
 " Text-objects.
 nnoremap <silent> <buffer> ]] :call search('^\\begin', "sW")<CR>
