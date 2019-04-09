@@ -3,7 +3,7 @@
 
 " Create better paragraph text-objects (mainly for formatting). We delimit
 " paragraphs by newlines, \begin{...}, \end{...}, \label{...}, \\, etc.
-let s:delimiters = '^(\s*$|\\begin|\\end|\\label|\\\\$)'
+let s:delimiters = '^(\s*$|\\begin|\\end|\\label|\\\\|\\\[|\\\]$)'
 function! s:Paragraph() abort
   " Save the search register
   let l:search = @/
