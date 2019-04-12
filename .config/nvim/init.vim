@@ -22,7 +22,6 @@ let g:tex_flavor = "latex"    " Default tex flavor is LaTeX
 let mapleader = "\<Space>"
 
 " Escape.
-inoremap jk <Esc>
 tnoremap <Esc> <C-\><C-n>
 
 " Clear highlighting.
