@@ -55,6 +55,9 @@ vnoremap S :s//g<Left><Left>
 " Make.
 nnoremap <silent> <Leader>mk :Make<CR>
 
+" Scratch buffer.
+command! New :new | setlocal nobuflisted noswapfile buftype=nofile
+
 " Primitive surrounding/deleting capability.
 nmap gs <Plug>Surround
 nmap ds <Plug>Delete
