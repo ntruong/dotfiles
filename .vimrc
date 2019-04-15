@@ -16,6 +16,7 @@ set nojoinspaces              " No double space when joining lines
 set noswapfile                " No swapfile
 set wildignorecase            " Ignore case in wildmenu
 set showtabline=2             " Tabline always visible
+set laststatus=2              " Statusline always visible
 set hlsearch                  " Highlight all search matches
 set incsearch                 " Incrementally update search
 set fillchars=vert:\ ,diff:\  " Make split separators invisible
