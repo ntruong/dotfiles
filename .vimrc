@@ -26,7 +26,6 @@ set fillchars=vert:\ ,diff:\  " Make split separators invisible
 let mapleader = "\<Space>"
 
 " Escape.
-inoremap jk <Esc>
 tnoremap <Esc> <C-\><C-n>
 
 " Clear highlighting.
