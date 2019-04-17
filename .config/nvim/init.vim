@@ -32,6 +32,8 @@ nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:echo "Localized directory."<CR>
 
 " Buffer switching.
 nnoremap gb :ls<CR>:buffer
+nnoremap <silent> c] :cnext<CR>
+nnoremap <silent> c[ :cprev<CR>
 
 " Tabbing.
 nnoremap <Leader>t :tabedit<CR>:edit<Space>
