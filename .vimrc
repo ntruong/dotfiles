@@ -59,6 +59,9 @@ vnoremap S :s//g<Left><Left>
 " Make.
 nnoremap <silent> <Leader>mk :make!<CR>
 
+" Scratch buffer.
+command! New :new | setlocal nobuflisted noswapfile buftype=nofile
+
 " Statusline.
 set statusline=
 set statusline+=%y        " File type
