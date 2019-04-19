@@ -62,6 +62,17 @@ nnoremap <silent> <Leader>mk :make!<CR>
 " Scratch buffer.
 command! New :new | setlocal nobuflisted noswapfile buftype=nofile
 
+" Strip trailing whitespace.
+function! StripTrail() abort
+  let search=@/
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  let @/=search
+  call cursor(l, c)
+endfunction
+nnoremap <silent> d<BS> :call StripTrail()<CR>
+
 " Statusline.
 set statusline=
 set statusline+=%y        " File type
