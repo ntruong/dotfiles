@@ -23,7 +23,7 @@ endfunction
 function! s:OnExit(mp, job, exitcode, event) abort
   let s:makeprg_pid = -1
   set statusline-=\ [↯]
-  echom a:mp . ' finished with exit code ' . a:exitcode
+  echom '`' . a:mp . '`' . ' finished with exit code ' . a:exitcode
 endfunction
 
 " Job control options.
