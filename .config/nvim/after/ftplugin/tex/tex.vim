@@ -10,6 +10,7 @@ nnoremap <silent> <buffer> [[ :call search('^\\begin', "sbW")<CR>
 nnoremap <silent> <buffer> ][ :call search('^\\end', "sW")<CR>
 nnoremap <silent> <buffer> [] :call search('^\\end', "sbW")<CR>
 omap <silent> <buffer> ip <Plug>Paragraph
+omap <silent> <buffer> i$ <Plug>MathMode
 " Text functions.
 inoremap <buffer> ' '
 inoremap <buffer> ;bf \textbf{}<C-g>U<Left>

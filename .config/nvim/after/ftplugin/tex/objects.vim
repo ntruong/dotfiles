@@ -29,5 +29,24 @@ function! s:Paragraph() abort
   " Restore the search register
   let @/ = l:search
 endfunction
-
 onoremap <Plug>Paragraph :<C-u>call <SID>Paragraph()<CR>
+
+" Create an object for math-mode, i.e. $...$.
+function! s:MathMode() abort
+  " Save the search register and whichwrap
+  let l:search = @/
+  let l:ww = &whichwrap
+  let &whichwrap = 'h,l'
+  " Search backwards for '$', then go to the next character
+  call search('\$', 'bcW')
+  normal! l
+  " Enter visual mode
+  normal! v
+  " Search forwards for a paragraph delimiter, then go to the next character
+  call search('\$', 'cW')
+  normal! h
+  " Restore the search register and whichwrap
+  let @/ = l:search
+  let &whichwrap = l:ww
+endfunction
+onoremap <Plug>MathMode :<C-u>call <SID>MathMode()<CR>
