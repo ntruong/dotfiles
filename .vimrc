@@ -20,6 +20,7 @@ set laststatus=2              " Statusline always visible
 set hlsearch                  " Highlight all search matches
 set incsearch                 " Incrementally update search
 set fillchars=vert:\ ,diff:\  " Make split separators invisible
+let g:tex_flavor = "latex"    " Default tex flavor is LaTeX
 
 """ Keymaps.
 " Leader.
