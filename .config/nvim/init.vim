@@ -78,14 +78,6 @@ nmap <silent> d<BS> <Plug>StripTrail
 imap <Tab>   <Plug>Completion
 imap <S-Tab> <Plug>PrevCompletion
 
-" Auto open/close braces.
-inoremap { {}<C-g>U<Left>
-inoremap ( ()<C-g>U<Left>
-inoremap [ []<C-g>U<Left>
-imap } <Plug>Match}
-imap ) <Plug>Match)
-imap ] <Plug>Match]
-
 " Autoindent and open braces.
 imap <CR> <Plug>Expand{}
 
