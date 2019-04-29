@@ -71,6 +71,9 @@ nmap <silent> N <Plug>searchN
 " Commenting.
 nmap <silent> <C-_> <Plug>Comment
 
+" Align visual selection.
+vmap <silent> g= <Plug>Align
+
 " Strip trailing whitespace.
 nmap <silent> d<BS> <Plug>StripTrail
 
