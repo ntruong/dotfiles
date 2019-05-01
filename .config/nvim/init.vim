@@ -57,6 +57,9 @@ vnoremap S :s//g<Left><Left>
 " Make.
 nnoremap <silent> <Leader>mk :Make<CR>
 
+" Align text using column (and use only one space to separate).
+let &equalprg='column -t | sed "s/\( *\) /\1/g"'
+
 " Scratch buffer.
 command! New :new | setlocal nobuflisted noswapfile buftype=nofile
 
@@ -70,9 +73,6 @@ nmap <silent> N <Plug>searchN
 
 " Commenting.
 nmap <silent> <C-_> <Plug>Comment
-
-" Align visual selection.
-vmap <silent> g= <Plug>Align
 
 " Strip trailing whitespace.
 nmap <silent> d<BS> <Plug>StripTrail
