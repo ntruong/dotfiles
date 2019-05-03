@@ -60,6 +60,9 @@ vnoremap S :s//g<Left><Left>
 " Make.
 nnoremap <silent> <Leader>mk :make!<CR>
 
+" Align text using column (and use only one space to separate).
+let &equalprg='column -t | sed "s/\( *\) /\1/g"'
+
 " Scratch buffer.
 command! New :new | setlocal nobuflisted noswapfile buftype=nofile
 
