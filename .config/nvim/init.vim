@@ -57,6 +57,9 @@ vnoremap S :s//g<Left><Left>
 " Make.
 nnoremap <silent> <Leader>mk :Make<CR>
 
+" Autoexpand braces on enter.
+inoremap {<CR> {}<C-g>U<Left><CR><C-o>O
+
 " Align text using column (and use only one space to separate).
 let &equalprg='column -t | sed "s/\( *\) /\1/g"'
 
@@ -80,13 +83,3 @@ nmap <silent> d<BS> <Plug>StripTrail
 " Tab triggers text completion.
 imap <Tab>   <Plug>Completion
 imap <S-Tab> <Plug>PrevCompletion
-
-" Autoindent and open braces.
-imap <CR> <Plug>Expand{}
-
-" Auto open/close quotes.
-imap " <Plug>Match"
-imap ' <Plug>Match'
-
-" Autoremove paired braces and quotes.
-imap <BS> <Plug>RemoveMatch
