@@ -4,6 +4,6 @@
 " Automatically open/close the quickfix/location windows.
 augroup Quickfix
   autocmd!
-  autocmd QuickFixCmdPost [^l]* cwindow
-  autocmd QuickFixCmdPost l* lwindow
+  autocmd QuickFixCmdPost [^l]* cwindow | wincmd p
+  autocmd QuickFixCmdPost l* lwindow | wincmd p
 augroup END
