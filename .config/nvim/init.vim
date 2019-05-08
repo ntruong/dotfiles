@@ -35,9 +35,6 @@ nnoremap gb :ls<CR>:buffer
 nnoremap <silent> c] :cnext<CR>
 nnoremap <silent> c[ :cprev<CR>
 
-" Tabbing.
-nnoremap <Leader>t :tabedit<CR>:edit<Space>
-
 " Split window navigation: [left] [down] [up] [right].
 nnoremap <silent> <C-h> <C-w>h
 nnoremap <silent> <C-j> <C-w>j
