@@ -13,15 +13,15 @@ omap <silent> <buffer> ip <Plug>Paragraph
 omap <silent> <buffer> i$ <Plug>MathMode
 " Text functions.
 inoremap <buffer> ' '
-inoremap <buffer> ;bf \textbf{}<C-g>U<Left>
-inoremap <buffer> ;it \textit{}<C-g>U<Left>
-inoremap <buffer> ;ul \underline{}<C-g>U<Left>
+inoremap <buffer> ;bf \textbf{
+inoremap <buffer> ;it \textit{
+inoremap <buffer> ;ul \underline{
 inoremap <buffer> /   \
 inoremap <buffer> \   /
 " Math stuff.
 inoremap <buffer> ;mm \[\]<Esc>T[i<CR><Esc>O
-inoremap <buffer> ;mb \mathbb{}<C-g>U<Left>
-inoremap <buffer> ;mc \mathcal{}<C-g>U<Left>
+inoremap <buffer> ;mb \mathbb{
+inoremap <buffer> ;mc \mathcal{
 " Environments.
 imap <buffer> ;bg <Plug>Environment
 
