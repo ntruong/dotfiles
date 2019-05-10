@@ -38,9 +38,8 @@ nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:echo "Localized directory."<CR>
 
 " Buffer switching.
 nnoremap gb :ls<CR>:buffer
-
-" Tabbing.
-nnoremap <Leader>t :tabedit<CR>:edit<Space>
+nnoremap <silent> c] :cnext<CR>
+nnoremap <silent> c[ :cprev<CR>
 
 " Split window navigation: [left] [down] [up] [right].
 nnoremap <silent> <C-h> <C-w>h
@@ -60,6 +59,9 @@ vnoremap S :s//g<Left><Left>
 
 " Make.
 nnoremap <silent> <Leader>mk :make!<CR>
+
+" Autoexpand braces on enter.
+inoremap {<CR> {}<C-g>U<Left><CR><C-o>O
 
 " Align text using column (and use only one space to separate).
 let &equalprg='column -t | sed "s/\( *\) /\1/g"'
