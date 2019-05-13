@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Clear terminal
+clear
+
+# Set colors
+COL='\033[0;31m'
+NOC='\033[0m'
+
+title="${USER}@${HOSTNAME%%\.*}"
+
+printf "${COL}${title}${NOC}\n\n"
+printf "${COL}os          ${NOC}macOS\n"
+printf "${COL}font        ${NOC}sf mono\n"
+printf "${COL}terminal    ${NOC}kitty\n"
+printf "${COL}uptime      ${NOC}$(uptime | awk '{print $3}') days\n"
+printf "\n"
