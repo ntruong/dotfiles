@@ -65,7 +65,6 @@ command! New :new | setlocal nobuflisted noswapfile buftype=nofile
 
 " Primitive surrounding/deleting capability.
 nmap gs <Plug>Surround
-nmap ds <Plug>Delete
 
 " Highlight the current match when searching with n/N.
 nmap <silent> n <Plug>searchn
