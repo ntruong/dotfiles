@@ -39,26 +39,4 @@ function! s:surround(type) abort
   return
 endfunction
 
-function! s:delete(char) abort
-  " Check to see if user pressed <Esc>; if so, skip deletion
-  if a:char != "\<Esc>"
-    " Map the provided character to delimiters
-    let l:delims = s:delims(a:char)
-    " Get the pair positions
-    let l:x = searchpairpos(l:delims[0], '', l:delims[1], "bcnW")
-    let l:y = searchpairpos(l:delims[0], '', l:delims[1], "cnW")
-    " Save our current position
-    let l:pos = getcurpos()
-    " Delete the offending delimiters; last first in case char positions change
-    call cursor(l:y)
-    normal! "_x
-    call cursor(l:x)
-    normal! "_x
-    " Restore our current position
-    call setpos('.', l:pos)
-  endif
-  return
-endfunction
-
 nnoremap <silent> <Plug>Surround :set operatorfunc=<SID>surround<CR>g@
-nnoremap <silent> <Plug>Delete   :call <SID>delete(nr2char(getchar()))<CR>
