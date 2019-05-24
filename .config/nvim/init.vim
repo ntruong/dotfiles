@@ -18,9 +18,6 @@ set fillchars=vert:\ ,diff:\  " Make split separators invisible
 let g:tex_flavor = "latex"    " Default tex flavor is LaTeX
 
 """ Keymaps.
-" Leader.
-let mapleader = "\<Space>"
-
 " Escape.
 tnoremap <Esc> <C-\><C-n>
 
@@ -28,7 +25,7 @@ tnoremap <Esc> <C-\><C-n>
 nnoremap <silent> <Esc> :nohlsearch<CR>:call clearmatches()<CR>
 
 " Localize directory.
-nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:echo "Localized directory."<CR>
+nnoremap <silent> <Space>cd :lcd %:p:h<CR>:echo "Localized directory."<CR>
 
 " Buffer switching.
 nnoremap gb :ls<CR>:buffer
@@ -52,7 +49,7 @@ nnoremap S :%s//g<Left><Left>
 vnoremap S :s//g<Left><Left>
 
 " Make.
-nnoremap <silent> <Leader>mk :Make<CR>
+nnoremap <silent> <Space>mk :Make<CR>
 
 " Autoexpand braces on enter.
 inoremap {<CR> {}<C-g>U<Left><CR><C-o>O
