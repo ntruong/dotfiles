@@ -1,4 +1,4 @@
-" Name: Vim Configuration
+" Name: Nvim Configuration
 " Author: Nicholas Truong
 
 """ Option settings.
