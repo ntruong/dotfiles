@@ -22,7 +22,7 @@ let g:tex_flavor = "latex"    " Default tex flavor is LaTeX
 tnoremap <Esc> <C-\><C-n>
 
 " Clear highlighting.
-nnoremap <silent> <Esc> :nohlsearch<CR>:call clearmatches()<CR>
+nnoremap <silent> <Esc> :nohlsearch<CR>
 
 " Localize directory.
 nnoremap <silent> <Space>cd :lcd %:p:h<CR>:echo "Localized directory."<CR>
@@ -62,10 +62,6 @@ command! New :new | setlocal nobuflisted noswapfile buftype=nofile
 
 " Primitive surrounding/deleting capability.
 nmap gs <Plug>Surround
-
-" Highlight the current match when searching with n/N.
-nmap <silent> n <Plug>searchn
-nmap <silent> N <Plug>searchN
 
 " Commenting.
 nmap <silent> <C-_> <Plug>Comment
