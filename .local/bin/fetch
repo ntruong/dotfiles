@@ -1,17 +1,78 @@
 #!/bin/bash
 
-# Clear terminal
-clear
-
 # Set colors
-COL='\033[0;31m'
-NOC='\033[0m'
+BLK="\e[30m"
+RED="\e[31m"
+GRN="\e[32m"
+YLW="\e[33m"
+BLU="\e[34m"
+PUR="\e[35m"
+CYN="\e[36m"
+WHT="\e[37m"
+NOC="\e[0m"
 
-title="${USER}@${HOSTNAME%%\.*}"
+# Build the top and bottom bars
+BART="▁▁▁▁"
 
-printf "${COL}${title}${NOC}\n\n"
-printf "${COL}os          ${NOC}macOS\n"
-printf "${COL}font        ${NOC}sf mono\n"
-printf "${COL}terminal    ${NOC}kitty\n"
-printf "${COL}uptime      ${NOC}$(uptime | awk '{print $3}') days\n"
-printf "\n"
+BARB="▔▔▔▔"
+
+((LEN = ${#BART} * 6))
+OUTT="$RED$BART$GRN$BART$YLW$BART$BLU$BART$PUR$BART$CYN$BART$NOC"
+OUTB="$RED$BARB$GRN$BARB$YLW$BARB$BLU$BARB$PUR$BARB$CYN$BARB$NOC"
+
+# System info entries
+ENTRIES=()
+
+# Function for creating entries
+mkent() {
+    if [[ "$#" != 2 ]]; then
+        printf "[!] Invalid number of arguments to mkent: $#\n"
+        exit
+    fi
+
+    local ENT="$2"
+    while ((${#ENT} < LEN - ${#1})); do
+        ENT=" $ENT" 
+    done
+
+    ENT="$RED""$1""$WHT""$ENT""$NOC"
+    ENTRIES+=("$ENT")
+}
+
+# Make entries
+mkent "os"       "macOS"
+mkent "wm"       "chunkwm"
+mkent "font"     "sf mono"
+mkent "terminal" "kitty"
+
+# Find screen center
+COL=$(tput cols)
+ROW=$(tput lines)
+((PADY = ROW / 2 - 1 - ${#ENTRIES[@]} / 2))
+((PADX = COL / 2 - LEN / 2))
+
+for ((i = 0; i < PADX; ++i)); do
+    PADC="$PADC "
+done
+
+for ((i = 0; i < PADY; ++i)); do
+    PADR="$PADR\n"
+done
+
+# Clear the terminal
+clear
+printf "%b" "$PADR"
+
+# Print system information
+printf "%s%b" "$PADC" "$OUTT\n"
+for ENT in "${ENTRIES[@]}"; do
+    printf "%s%b" "$PADC" "$ENT\n"
+done
+printf "%s%b" "$PADC" "$OUTB\n"
+
+# Wait for user input
+tput civis
+read -n 1
+
+# Finish
+tput cnorm
