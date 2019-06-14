@@ -72,7 +72,7 @@ printf "%s%b" "$PADC" "$OUTB\n"
 
 # Wait for user input
 tput civis
-read -n 1
+read -n 1 -s
 
 # Finish
 tput cnorm
