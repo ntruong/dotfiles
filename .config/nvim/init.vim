@@ -29,8 +29,8 @@ nnoremap <silent> <Space>cd :lcd %:p:h<CR>:echo "Localized directory."<CR>
 
 " Buffer switching.
 nnoremap gb :ls<CR>:buffer
-nnoremap <silent> c] :cnext<CR>
-nnoremap <silent> c[ :cprev<CR>
+nnoremap <silent> ]q :cnext<CR>
+nnoremap <silent> [q :cprev<CR>
 
 " Split window navigation.
 nnoremap <silent> <C-h> <C-w>h
