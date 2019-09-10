@@ -3,7 +3,8 @@
 
 " Create better paragraph text-objects (mainly for formatting). We delimit
 " paragraphs by newlines, \begin{...}, \end{...}, \label{...}, \\, etc.
-let s:delimiters  = '^(\s*$'
+let s:delimiters  = '('
+let s:delimiters .= '^\s*$'
 let s:delimiters .= '|\\begin'
 let s:delimiters .= '|\\end'
 let s:delimiters .= '|\\label'
