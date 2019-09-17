@@ -5,6 +5,8 @@
 compiler latexmk
 filetype indent off
 set spell spelllang=en_us
+set foldmethod=marker
+set foldopen-=block
 " Text-objects.
 nnoremap <silent> <buffer> ]] :call search('^\\begin', "sW")<CR>
 nnoremap <silent> <buffer> [[ :call search('^\\begin', "sbW")<CR>
