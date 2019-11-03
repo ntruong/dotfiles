@@ -24,9 +24,6 @@ set fillchars=vert:\ ,diff:\  " Make split separators invisible
 let g:tex_flavor = "latex"    " Default tex flavor is LaTeX
 
 """ Keymaps.
-" Leader.
-let mapleader = "\<Space>"
-
 " Escape.
 tnoremap <Esc> <C-\><C-n>
 
@@ -34,14 +31,14 @@ tnoremap <Esc> <C-\><C-n>
 nnoremap <silent> <Esc> :nohlsearch<CR>:call clearmatches()<CR>
 
 " Localize directory.
-nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:echo "Localized directory."<CR>
+nnoremap <silent> <Space>cd :lcd %:p:h<CR>:echo "Localized directory."<CR>
 
 " Buffer switching.
 nnoremap gb :ls<CR>:buffer
-nnoremap <silent> c] :cnext<CR>
-nnoremap <silent> c[ :cprev<CR>
+nnoremap <silent> ]q :cnext<CR>
+nnoremap <silent> [q :cprev<CR>
 
-" Split window navigation: [left] [down] [up] [right].
+" Split window navigation.
 nnoremap <silent> <C-h> <C-w>h
 nnoremap <silent> <C-j> <C-w>j
 nnoremap <silent> <C-k> <C-w>k
@@ -58,7 +55,7 @@ nnoremap S :%s//g<Left><Left>
 vnoremap S :s//g<Left><Left>
 
 " Make.
-nnoremap <silent> <Leader>mk :make!<CR>
+nnoremap <silent> <Space>mk :make!<CR>
 
 " Autoexpand braces on enter.
 inoremap {<CR> {}<C-g>U<Left><CR><C-o>O
@@ -84,10 +81,10 @@ nnoremap <silent> d<BS> :call StripTrail()<CR>
 set statusline=
 set statusline+=%y        " File type
 set statusline+=\ %.40f   " File path
-set statusline+=%=        " Right side
 set statusline+=\ %3(%m%) " Flags
-set statusline+=\ [%3l,   " Line number
-set statusline+=%-3.3c]   " Column number
+set statusline+=%=        " Right side
+set statusline+=%3l,      " Line number
+set statusline+=%-3.3c    " Column number
 
 " Tabline.
 function! Tabline() abort
@@ -103,6 +100,6 @@ function! Tabline() abort
     endif
     let tl .= " " . file . " "
   endfor
-  return "%#TabLine#" . tl . "%#TabLineFill#"
+  return "%#TabLine#" . trim(tl) . "%#TabLineFill#"
 endfunction
 set tabline=%!Tabline()
