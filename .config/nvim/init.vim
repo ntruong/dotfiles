@@ -54,6 +54,9 @@ nnoremap <silent> <Space>mk :Make<CR>
 " Autoexpand braces on enter.
 inoremap {<CR> {}<C-g>U<Left><CR><C-o>O
 
+" Automatically correct spelling mistakes.
+inoremap <C-l> <C-g>u<Esc>[s1z=`]a<C-g>u
+
 " Align text using column (and use only one space to separate).
 let &equalprg='column -t | sed "s/\( *\) /\1/g"'
 
