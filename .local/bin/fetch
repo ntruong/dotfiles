@@ -41,7 +41,7 @@ mkent() {
 
 # Make entries
 mkent "os"       "macOS"
-mkent "wm"       "chunkwm"
+mkent "wm"       "yabai"
 mkent "font"     "sf mono"
 mkent "terminal" "kitty"
 
